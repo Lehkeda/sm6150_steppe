@@ -45,8 +45,10 @@ on fs
     wait /dev/block/platform/soc/8804000.sdhci
     symlink /dev/block/platform/soc/8804000.sdhci /dev/block/bootdevice
     mount_all /vendor/etc/fstab.qcom
-    restorecon_recursive /persist
-    mkdir /persist/data 0700 system system
+    chown root system /mnt/vendor/persist
+    chmod 0771 /mnt/vendor/persist
+    restorecon_recursive /mnt/vendor/persist
+    mkdir /mnt/vendor/persist/data 0700 system system
 
 on post-fs
     start qseecomd
