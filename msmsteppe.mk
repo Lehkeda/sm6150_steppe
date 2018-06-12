@@ -127,7 +127,7 @@ PRODUCT_COPY_FILES += \
 
 # Adding vendor manifest
 PRODUCT_COPY_FILES += \
-    device/qcom/$(MSMSTEPPE)/vintf.xml:$(TARGET_COPY_OUT_VENDOR)/manifest.xml
+    device/qcom/$(MSMSTEPPE)/manifest.xml:$(TARGET_COPY_OUT_VENDOR)/manifest.xml
 
 #ANT+ stack
 PRODUCT_PACKAGES += \
