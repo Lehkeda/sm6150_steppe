@@ -61,6 +61,9 @@ ifneq ($(TARGET_DISABLE_DASH), true)
     PRODUCT_BOOT_JARS += qcmediaplayer
 endif
 
+# Video platform properties file
+PRODUCT_COPY_FILES += hardware/qcom/media/conf_files/msmsteppe/system_properties.xml:$(TARGET_COPY_OUT_VENDOR)/etc/system_properties.xml
+
 # Video codec configuration files
 ifeq ($(TARGET_ENABLE_QC_AV_ENHANCEMENTS), true)
 PRODUCT_COPY_FILES += device/qcom/$(MSMSTEPPE)/media_profiles.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_profiles_V1_0.xml
