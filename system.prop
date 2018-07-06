@@ -1,5 +1,5 @@
 #
-# system.prop for sdm845
+# system.prop for talos
 #
 
 rild.libpath=/vendor/lib64/libril-qc-hal-qmi.so

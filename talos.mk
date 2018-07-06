@@ -28,6 +28,10 @@ ifeq ($(ENABLE_VENDOR_IMAGE), true)
 #TARGET_USES_QTIC_EXTENSION := false
 
 endif
+
+# Default A/B configuration.
+ENABLE_AB ?= true
+
 TARGET_KERNEL_VERSION := 4.14
 # default is nosdcard, S/W button enabled in resource
 PRODUCT_CHARACTERISTICS := nosdcard
@@ -104,17 +108,19 @@ PRODUCT_PACKAGES += $(AUDIO_DLKM)
 
 PRODUCT_PACKAGES += fs_config_files
 
+ifeq ($(ENABLE_AB), true)
 #A/B related packages
 PRODUCT_PACKAGES += update_engine \
     update_engine_client \
     update_verifier \
-    bootctrl.msmnile \
+    bootctrl.$(MSMSTEPPE) \
     brillo_update_payload \
     android.hardware.boot@1.0-impl \
     android.hardware.boot@1.0-service
 
 #Boot control HAL test app
 PRODUCT_PACKAGES_DEBUG += bootctl
+endif
 
 #Healthd packages
 PRODUCT_PACKAGES += \
