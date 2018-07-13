@@ -1,2 +1,2 @@
 PRODUCT_MAKEFILES := \
-	$(LOCAL_DIR)/msmsteppe.mk
+	$(LOCAL_DIR)/talos.mk
