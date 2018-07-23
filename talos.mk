@@ -221,3 +221,6 @@ ENABLE_KM_4_0 := true
 
 # Enable flag to support slow devices
 TARGET_PRESIL_SLOW_BOARD := true
+
+# Enable vndk-sp Librarie
+PRODUCT_PACKAGES += vndk_package
