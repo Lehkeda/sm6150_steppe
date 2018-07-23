@@ -195,5 +195,5 @@ $(error "Vendor Image is mandatory !!")
 endif
 #Flag to enable System SDK Requirements.
 #All vendor APK will be compiled against system_current API set.
-BOARD_SYSTEMSDK_VERSIONS:=P
+BOARD_SYSTEMSDK_VERSIONS:=28
 BOARD_VNDK_VERSION:= current
