@@ -245,3 +245,5 @@ endif
 
 # Enable vndk-sp Librarie
 PRODUCT_PACKAGES += vndk_package
+
+PRODUCT_COMPATIBLE_PROPERTY_OVERRIDE:=true
