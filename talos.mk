@@ -242,3 +242,6 @@ TARGET_PRESIL_SLOW_BOARD := true
 ifneq ($(BOARD_AVB_ENABLE), true)
  PRODUCT_SUPPORTS_VERITY := true
 endif
+
+# Enable vndk-sp Librarie
+PRODUCT_PACKAGES += vndk_package
