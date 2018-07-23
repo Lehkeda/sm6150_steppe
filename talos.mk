@@ -224,3 +224,5 @@ TARGET_PRESIL_SLOW_BOARD := true
 
 # Enable vndk-sp Librarie
 PRODUCT_PACKAGES += vndk_package
+
+PRODUCT_COMPATIBLE_PROPERTY_OVERRIDE:=true
