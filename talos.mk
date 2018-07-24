@@ -226,3 +226,6 @@ TARGET_PRESIL_SLOW_BOARD := true
 PRODUCT_PACKAGES += vndk_package
 
 PRODUCT_COMPATIBLE_PROPERTY_OVERRIDE:=true
+
+TARGET_USES_MKE2FS := true
+$(call inherit-product, build/make/target/product/product_launched_with_p.mk)
