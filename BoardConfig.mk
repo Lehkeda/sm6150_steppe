@@ -53,6 +53,8 @@ else
 BOARD_RECOVERYIMAGE_PARTITION_SIZE := 0x04000000
 BOARD_CACHEIMAGE_PARTITION_SIZE := 268435456
 BOARD_CACHEIMAGE_FILE_SYSTEM_TYPE := ext4
+# Enable System As Root even for non-A/B
+BOARD_BUILD_SYSTEM_ROOT_IMAGE := true
 ifeq ($(BOARD_AVB_ENABLE), true)
    BOARD_AVB_RECOVERY_KEY_PATH := external/avb/test/data/testkey_rsa4096.pem
    BOARD_AVB_RECOVERY_ALGORITHM := SHA256_RSA4096
@@ -185,3 +187,7 @@ BOARD_KERNEL_SEPARATED_DTBO := true
 
 #Disable LM
 TARGET_USES_LM := false
+
+ifeq ($(ENABLE_VENDOR_IMAGE), false)
+$(error "Vendor Image is mandatory !!")
+endif

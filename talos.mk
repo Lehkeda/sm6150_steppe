@@ -16,19 +16,6 @@ TARGET_USES_AOSP := true
 TARGET_USES_AOSP_FOR_AUDIO := false
 TARGET_USES_QCOM_BSP := false
 
-#Default vendor image configuration
-ifeq ($(ENABLE_VENDOR_IMAGE),)
-ENABLE_VENDOR_IMAGE := false
-endif
-ifeq ($(ENABLE_VENDOR_IMAGE), true)
-#Comment on msm8998 tree says that QTIC does not
-# yet support system/vendor split. So disabling it
-# for MSMSTEPPE as well
-#TARGET_USES_QTIC := false
-#TARGET_USES_QTIC_EXTENSION := false
-
-endif
-
 # Default A/B configuration.
 ENABLE_AB ?= true
 
