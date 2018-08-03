@@ -88,8 +88,17 @@ AUDIO_DLKM += audio_wcd9xxx.ko
 AUDIO_DLKM += audio_mbhc.ko
 AUDIO_DLKM += audio_wcd_spi.ko
 AUDIO_DLKM += audio_native.ko
-AUDIO_DLKM += audio_machine_msmnile.ko
+AUDIO_DLKM += audio_machine_talos.ko
 AUDIO_DLKM += audio_wcd934x.ko
+AUDIO_DLKM += audio_pinctrl_lpi.ko
+AUDIO_DLKM += audio_wcd937x.ko
+AUDIO_DLKM += audio_wcd937x_slave.ko
+AUDIO_DLKM += audio_bolero_cdc.ko
+AUDIO_DLKM += audio_wsa_macro.ko
+AUDIO_DLKM += audio_va_macro.ko
+AUDIO_DLKM += audio_rx_macro.ko
+AUDIO_DLKM += audio_tx_macro.ko
+
 PRODUCT_PACKAGES += $(AUDIO_DLKM)
 
 PRODUCT_PACKAGES += fs_config_files
