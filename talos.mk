@@ -19,6 +19,9 @@ TARGET_USES_QCOM_BSP := false
 # Default A/B configuration.
 ENABLE_AB ?= true
 
+# RRO configuration
+TARGET_USES_RRO := true
+
 TARGET_KERNEL_VERSION := 4.14
 # default is nosdcard, S/W button enabled in resource
 PRODUCT_CHARACTERISTICS := nosdcard
