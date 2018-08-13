@@ -225,10 +225,10 @@ PRODUCT_FULL_TREBLE_OVERRIDE := true
 PRODUCT_VENDOR_MOVE_ENABLED := true
 
 #Enable QTI KEYMASTER and GATEKEEPER HIDLs
-KMGK_USE_QTI_SERVICE := true
+KMGK_USE_QTI_SERVICE := false
 
 #Enable KEYMASTER 4.0
-ENABLE_KM_4_0 := true
+#ENABLE_KM_4_0 := false
 
 # Enable flag to support slow devices
 TARGET_PRESIL_SLOW_BOARD := true
