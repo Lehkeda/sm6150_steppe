@@ -12,22 +12,13 @@ PRODUCT_BRAND := Android
 PRODUCT_MODEL := $(MSMSTEPPE) for arm64
 
 #Initial bringup flags
-TARGET_USES_AOSP := true
+TARGET_USES_AOSP := false
 TARGET_USES_AOSP_FOR_AUDIO := false
 TARGET_USES_QCOM_BSP := false
 
-#Default vendor image configuration
-ifeq ($(ENABLE_VENDOR_IMAGE),)
-ENABLE_VENDOR_IMAGE := false
-endif
-ifeq ($(ENABLE_VENDOR_IMAGE), true)
-#Comment on msm8998 tree says that QTIC does not
-# yet support system/vendor split. So disabling it
-# for MSMSTEPPE as well
-#TARGET_USES_QTIC := false
-#TARGET_USES_QTIC_EXTENSION := false
+# Default A/B configuration.
+ENABLE_AB ?= true
 
-endif
 TARGET_KERNEL_VERSION := 4.14
 # default is nosdcard, S/W button enabled in resource
 PRODUCT_CHARACTERISTICS := nosdcard
@@ -66,7 +57,7 @@ PRODUCT_COPY_FILES += hardware/qcom/media/conf_files/msmsteppe/system_properties
 
 # Video codec configuration files
 ifeq ($(TARGET_ENABLE_QC_AV_ENHANCEMENTS), true)
-PRODUCT_COPY_FILES += device/qcom/$(MSMSTEPPE)/media_profiles.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_profiles_V1_0.xml
+PRODUCT_COPY_FILES += device/qcom/$(MSMSTEPPE)/media_profiles.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_profiles_vendor.xml
 
 PRODUCT_COPY_FILES += device/qcom/$(MSMSTEPPE)/media_codecs.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs.xml
 
@@ -95,7 +86,6 @@ AUDIO_DLKM += audio_hdmi.ko
 AUDIO_DLKM += audio_stub.ko
 AUDIO_DLKM += audio_wcd9xxx.ko
 AUDIO_DLKM += audio_mbhc.ko
-AUDIO_DLKM += audio_wcd9360.ko
 AUDIO_DLKM += audio_wcd_spi.ko
 AUDIO_DLKM += audio_native.ko
 AUDIO_DLKM += audio_machine_msmnile.ko
@@ -104,17 +94,19 @@ PRODUCT_PACKAGES += $(AUDIO_DLKM)
 
 PRODUCT_PACKAGES += fs_config_files
 
+ifeq ($(ENABLE_AB), true)
 #A/B related packages
 PRODUCT_PACKAGES += update_engine \
     update_engine_client \
     update_verifier \
-    bootctrl.msmnile \
+    bootctrl.$(MSMSTEPPE) \
     brillo_update_payload \
     android.hardware.boot@1.0-impl \
     android.hardware.boot@1.0-service
 
 #Boot control HAL test app
 PRODUCT_PACKAGES_DEBUG += bootctl
+endif
 
 #Healthd packages
 PRODUCT_PACKAGES += \
@@ -221,7 +213,11 @@ PRODUCT_COPY_FILES += \
 PRODUCT_FULL_TREBLE_OVERRIDE := true
 PRODUCT_VENDOR_MOVE_ENABLED := true
 
-KMGK_USE_QTI_SERVICE := false
+#Enable QTI KEYMASTER and GATEKEEPER HIDLs
+KMGK_USE_QTI_SERVICE := true
+
+#Enable KEYMASTER 4.0
+ENABLE_KM_4_0 := true
 
 # Enable flag to support slow devices
 TARGET_PRESIL_SLOW_BOARD := true
