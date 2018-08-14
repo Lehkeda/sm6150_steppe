@@ -242,3 +242,8 @@ TARGET_USES_MKE2FS := true
 $(call inherit-product, build/make/target/product/product_launched_with_p.mk)
 
 TARGET_MOUNT_POINTS_SYMLINKS := false
+
+# dm-verity definitions
+ifneq ($(BOARD_AVB_ENABLE), true)
+ PRODUCT_SUPPORTS_VERITY := true
+endif
