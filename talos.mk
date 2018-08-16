@@ -52,6 +52,10 @@ ifneq ($(TARGET_DISABLE_DASH), true)
     PRODUCT_BOOT_JARS += qcmediaplayer
 endif
 
+ifneq ($(strip $(QCPATH)),)
+    PRODUCT_BOOT_JARS += WfdCommon
+endif
+
 # Video platform properties file
 PRODUCT_COPY_FILES += hardware/qcom/media/conf_files/msmsteppe/system_properties.xml:$(TARGET_COPY_OUT_VENDOR)/etc/system_properties.xml
 
