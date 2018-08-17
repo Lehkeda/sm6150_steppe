@@ -115,8 +115,8 @@ BOARD_VENDOR_KERNEL_MODULES := \
     $(KERNEL_MODULES_OUT)/audio_native.ko \
     $(KERNEL_MODULES_OUT)/audio_machine_$(MSMSTEPPE).ko \
     $(KERNEL_MODULES_OUT)/wil6210.ko \
-    $(KERNEL_MODULES_OUT)/msm_11ad_proxy.ko
-#    $(KERNEL_MODULES_OUT)/qca_cld3_wlan.ko \
+    $(KERNEL_MODULES_OUT)/msm_11ad_proxy.ko \
+    $(KERNEL_MODULES_OUT)/qca_cld3_wlan.ko
 #    $(KERNEL_MODULES_OUT)/rdbg.ko
 
 TARGET_USES_ION := true
