@@ -198,6 +198,9 @@ BOARD_KERNEL_SEPARATED_DTBO := true
 #Disable LM
 TARGET_USES_LM := false
 
+# Enable QG user space
+PMIC_QG_SUPPORT := true
+
 ifeq ($(ENABLE_VENDOR_IMAGE), false)
 $(error "Vendor Image is mandatory !!")
 endif
