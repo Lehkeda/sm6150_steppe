@@ -222,6 +222,10 @@ KERNEL_MODULES_OUT := out/target/product/$(PRODUCT_NAME)/$(KERNEL_MODULES_INSTAL
 PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.opengles.aep.xml:system/etc/permissions/android.hardware.opengles.aep.xml
 
+#system prop for Bluetooth SOC type
+PRODUCT_PROPERTY_OVERRIDES += \
+    vendor.qcom.bluetooth.soc=cherokee
+
 #Enable full treble flag
 PRODUCT_FULL_TREBLE_OVERRIDE := true
 PRODUCT_VENDOR_MOVE_ENABLED := true
@@ -235,17 +239,18 @@ ENABLE_KM_4_0 := true
 # Enable flag to support slow devices
 TARGET_PRESIL_SLOW_BOARD := true
 
-# Enable vndk-sp Librarie
-PRODUCT_PACKAGES += vndk_package
-
-PRODUCT_COMPATIBLE_PROPERTY_OVERRIDE:=true
-
-TARGET_USES_MKE2FS := true
-$(call inherit-product, build/make/target/product/product_launched_with_p.mk)
-
-TARGET_MOUNT_POINTS_SYMLINKS := false
-
 # dm-verity definitions
 ifneq ($(BOARD_AVB_ENABLE), true)
  PRODUCT_SUPPORTS_VERITY := true
 endif
+
+# Enable vndk-sp Librarie
+PRODUCT_PACKAGES += vndk_package
+
+PRODUCT_COMPATIBLE_PROPERTY_OVERRIDE:=true
+TARGET_MOUNT_POINTS_SYMLINKS := false
+
+TARGET_USES_MKE2FS := true
+$(call inherit-product, build/make/target/product/product_launched_with_p.mk)
+
+
