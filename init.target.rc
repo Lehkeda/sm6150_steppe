@@ -353,7 +353,7 @@ service vendor.imsdatadaemon /system/vendor/bin/imsdatadaemon
 #   group gps system qcom_diag diag log inet net_raw
 #   disabled
 
-service imsrcsservice /system/vendor/bin/imsrcsd
+service vendor.imsrcsservice /system/vendor/bin/imsrcsd
     class main
     user system
     group radio diag inet log
