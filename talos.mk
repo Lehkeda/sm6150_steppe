@@ -16,8 +16,6 @@ TARGET_USES_AOSP := false
 TARGET_USES_AOSP_FOR_AUDIO := false
 TARGET_USES_QCOM_BSP := false
 
-DEVICE_PACKAGE_OVERLAYS += device/qcom/talos/overlay
-
 # Default A/B configuration.
 ENABLE_AB ?= true
 
