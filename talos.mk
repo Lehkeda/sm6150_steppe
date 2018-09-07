@@ -124,6 +124,8 @@ PRODUCT_PACKAGES += update_engine \
 PRODUCT_PACKAGES_DEBUG += bootctl
 endif
 
+DEVICE_MANIFEST_FILE := device/qcom/talos/manifest.xml
+
 #Healthd packages
 PRODUCT_PACKAGES += \
     android.hardware.health@1.0-impl \
