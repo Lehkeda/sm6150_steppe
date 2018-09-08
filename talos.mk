@@ -19,6 +19,9 @@ TARGET_USES_QCOM_BSP := false
 # Default A/B configuration.
 ENABLE_AB ?= true
 
+# RRO configuration
+TARGET_USES_RRO := true
+
 TARGET_KERNEL_VERSION := 4.14
 # default is nosdcard, S/W button enabled in resource
 PRODUCT_CHARACTERISTICS := nosdcard
@@ -50,6 +53,10 @@ TARGET_DISABLE_QTI_VPP := true
 
 ifneq ($(TARGET_DISABLE_DASH), true)
     PRODUCT_BOOT_JARS += qcmediaplayer
+endif
+
+ifneq ($(strip $(QCPATH)),)
+    PRODUCT_BOOT_JARS += WfdCommon
 endif
 
 # Video platform properties file
@@ -162,6 +169,9 @@ PRODUCT_COPY_FILES += \
 # MSM IRQ Balancer configuration file
 PRODUCT_COPY_FILES += device/qcom/$(MSMSTEPPE)/msm_irqbalance.conf:$(TARGET_COPY_OUT_VENDOR)/etc/msm_irqbalance.conf
 
+# Powerhint configuration file
+PRODUCT_COPY_FILES += device/qcom/$(MSMSTEPPE)/powerhint.xml:$(TARGET_COPY_OUT_VENDOR)/etc/powerhint.xml
+
 # Camera configuration file. Shared by passthrough/binderized camera HAL
 PRODUCT_PACKAGES += camera.device@3.2-impl
 PRODUCT_PACKAGES += camera.device@1.0-impl
@@ -247,8 +257,4 @@ PRODUCT_PACKAGES += vndk_package
 
 PRODUCT_COMPATIBLE_PROPERTY_OVERRIDE:=true
 TARGET_MOUNT_POINTS_SYMLINKS := false
-
-TARGET_USES_MKE2FS := true
-$(call inherit-product, build/make/target/product/product_launched_with_p.mk)
-
 
