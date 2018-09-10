@@ -124,8 +124,6 @@ PRODUCT_PACKAGES += update_engine \
 PRODUCT_PACKAGES_DEBUG += bootctl
 endif
 
-DEVICE_FRAMEWORK_COMPATIBILITY_MATRIX_FILE := device/qcom/common/vendor_framework_compatibility_matrix.xml
-
 #Healthd packages
 PRODUCT_PACKAGES += \
     android.hardware.health@1.0-impl \
