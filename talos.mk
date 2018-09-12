@@ -126,6 +126,7 @@ PRODUCT_PACKAGES_DEBUG += bootctl
 endif
 
 DEVICE_MANIFEST_FILE := device/qcom/talos/manifest.xml
+DEVICE_FRAMEWORK_MANIFEST_FILE := device/qcom/talos/framework_manifest.xml
 
 #Healthd packages
 PRODUCT_PACKAGES += \
