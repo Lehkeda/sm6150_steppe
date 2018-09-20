@@ -1,6 +1,13 @@
 # Enable AVB 2.0
 BOARD_AVB_ENABLE := true
 
+
+# Enable chain partition for system, to facilitate system-only OTA in Treble.
+BOARD_AVB_SYSTEM_KEY_PATH := external/avb/test/data/testkey_rsa2048.pem
+BOARD_AVB_SYSTEM_ALGORITHM := SHA256_RSA2048
+BOARD_AVB_SYSTEM_ROLLBACK_INDEX := 0
+BOARD_AVB_SYSTEM_ROLLBACK_INDEX_LOCATION := 2
+
 #target name, shall be used in all makefiles
 MSMSTEPPE = talos
 
@@ -35,6 +42,7 @@ WLAN_CHIPSET := qca_cld3
 PRODUCT_PACKAGES += libGLES_android
 
 -include $(QCPATH)/common/config/qtic-config.mk
+-include hardware/qcom/display/config/talos.mk
 
 $(warning ****** MSMSTEPPE code name is: $(MSMSTEPPE))
 # Video seccomp policy files
@@ -124,6 +132,9 @@ PRODUCT_PACKAGES += update_engine \
 PRODUCT_PACKAGES_DEBUG += bootctl
 endif
 
+DEVICE_MANIFEST_FILE := device/qcom/talos/manifest.xml
+DEVICE_FRAMEWORK_MANIFEST_FILE := device/qcom/talos/framework_manifest.xml
+
 #Healthd packages
 PRODUCT_PACKAGES += \
     android.hardware.health@1.0-impl \
@@ -146,17 +157,7 @@ PRODUCT_PACKAGES += \
     antradio_app \
     libvolumelistener
 
-# Display/Graphics
 PRODUCT_PACKAGES += \
-    android.hardware.graphics.allocator@2.0-impl \
-    android.hardware.graphics.allocator@2.0-service \
-    android.hardware.graphics.mapper@2.0-impl \
-    android.hardware.graphics.composer@2.1-impl \
-    android.hardware.graphics.composer@2.1-service \
-    android.hardware.memtrack@1.0-impl \
-    android.hardware.memtrack@1.0-service \
-    android.hardware.light@2.0-impl \
-    android.hardware.light@2.0-service \
     android.hardware.configstore@1.0-service \
     android.hardware.broadcastradio@1.0-impl
 
@@ -256,3 +257,4 @@ PRODUCT_PACKAGES += vndk_package
 PRODUCT_COMPATIBLE_PROPERTY_OVERRIDE:=true
 TARGET_MOUNT_POINTS_SYMLINKS := false
 
+ENABLE_VENDOR_RIL_SERVICE := true
