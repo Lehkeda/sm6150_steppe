@@ -207,6 +207,10 @@ PRODUCT_PACKAGES += \
     wificond \
     wifilogd
 
+# USB default HAL
+PRODUCT_PACKAGES += \
+    android.hardware.usb@1.0-service
+
 # Sensor conf files
 PRODUCT_COPY_FILES += \
     device/qcom/$(MSMSTEPPE)/sensors/hals.conf:$(TARGET_COPY_OUT_VENDOR)/etc/sensors/hals.conf \
