@@ -137,6 +137,12 @@ endif
 DEVICE_MANIFEST_FILE := device/qcom/talos/manifest.xml
 DEVICE_FRAMEWORK_MANIFEST_FILE := device/qcom/talos/framework_manifest.xml
 
+TARGET_USES_NQ_NFC := true
+ifeq ($(TARGET_USES_NQ_NFC),true)
+PRODUCT_COPY_FILES += \
+    vendor/nxp/opensource/commonsys/external/libnfc-nci/halimpl/libnfc-nci.conf:$(TARGET_COPY_OUT_VENDOR)/etc/libnfc-nci.conf
+endif
+
 #Healthd packages
 PRODUCT_PACKAGES += \
     android.hardware.health@1.0-impl \
