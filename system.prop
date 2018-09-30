@@ -127,6 +127,9 @@ sys.qca1530=detect
 #Enable stm events
 persist.debug.coresight.config=stm-events
 
+#Enable virtual display.
+debug.sf.enable_hwc_vds=1
+
 #hwui properties
 ro.hwui.texture_cache_size=72
 ro.hwui.layer_cache_size=48
