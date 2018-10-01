@@ -215,7 +215,7 @@ service adsprpcd /vendor/bin/adsprpcd audiopd
    group media
 
 service adsprpcd_sensorspd /vendor/bin/adsprpcd sensorspd
-   class main
+   class core
    user system
    group system
 
