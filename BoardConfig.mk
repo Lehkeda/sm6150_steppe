@@ -126,7 +126,6 @@ BOARD_VENDOR_KERNEL_MODULES := \
     $(KERNEL_MODULES_OUT)/audio_machine_talos.ko \
     $(KERNEL_MODULES_OUT)/wil6210.ko \
     $(KERNEL_MODULES_OUT)/msm_11ad_proxy.ko \
-    $(KERNEL_MODULES_OUT)/qca_cld3_wlan.ko
 #    $(KERNEL_MODULES_OUT)/rdbg.ko
 
 TARGET_USES_ION := true
@@ -199,6 +198,13 @@ PMIC_QG_SUPPORT := true
 
 ifeq ($(ENABLE_VENDOR_IMAGE), false)
 $(error "Vendor Image is mandatory !!")
+endif
+
+#----------------------------------------------------------------------
+# wlan specific
+#----------------------------------------------------------------------
+ifeq ($(strip $(BOARD_HAS_QCOM_WLAN)),true)
+include device/qcom/wlan/talos/BoardConfigWlan.mk
 endif
 
 #Flag to enable System SDK Requirements.
