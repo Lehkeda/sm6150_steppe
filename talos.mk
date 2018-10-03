@@ -241,6 +241,9 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     vendor.qcom.bluetooth.soc=cherokee
 
+#Property to enable IO cgroups
+PRODUCT_PROPERTY_OVERRIDES += ro.vendor.iocgrp.config=1
+
 #Enable full treble flag
 PRODUCT_FULL_TREBLE_OVERRIDE := true
 PRODUCT_VENDOR_MOVE_ENABLED := true
