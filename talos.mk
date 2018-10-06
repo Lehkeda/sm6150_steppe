@@ -206,6 +206,10 @@ PRODUCT_COPY_FILES += \
 
 PRODUCT_RESTRICT_VENDOR_FILES := false
 
+# USB default HAL
+PRODUCT_PACKAGES += \
+    android.hardware.usb@1.0-service
+
 # Sensor conf files
 PRODUCT_COPY_FILES += \
     device/qcom/$(MSMSTEPPE)/sensors/hals.conf:$(TARGET_COPY_OUT_VENDOR)/etc/sensors/hals.conf \
