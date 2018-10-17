@@ -173,3 +173,4 @@ vendor.camera.aux.packagelist=org.codeaurora.snapcam
 # network location provider is not functional
 ro.location.osnlp.package=com.google.android.gms
 ro.location.osnlp.region.package=
+vendor.perf.dolphin.enable=true
