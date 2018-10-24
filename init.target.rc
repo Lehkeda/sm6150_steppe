@@ -119,6 +119,18 @@ on boot
     setprop vendor.usb.dpl.inst.name "dpl"
     setprop sys.usb.configfs 1
 
+on property:vendor.display.lcd_density=560
+   setprop dalvik.vm.heapgrowthlimit 256m
+
+on property:vendor.display.lcd_density=480
+   setprop dalvik.vm.heapgrowthlimit 128m
+
+on property:vendor.display.lcd_density=240
+   setprop dalvik.vm.heapgrowthlimit 96m
+
+on property:vendor.display.lcd_density=160
+   setprop dalvik.vm.heapgrowthlimit 96m
+
 #start camera server as daemon
 #service qcamerasvr /system/bin/mm-qcamera-daemon
 #    class late_start
