@@ -15,7 +15,7 @@ $(call inherit-product, device/qcom/common/common64.mk)
 
 PRODUCT_NAME := $(MSMSTEPPE)
 PRODUCT_DEVICE := $(MSMSTEPPE)
-PRODUCT_BRAND := Android
+PRODUCT_BRAND := qti
 PRODUCT_MODEL := $(MSMSTEPPE) for arm64
 
 #Initial bringup flags
@@ -42,7 +42,6 @@ PRODUCT_PACKAGES += libGLES_android
 -include $(QCPATH)/common/config/qtic-config.mk
 -include hardware/qcom/display/config/talos.mk
 
-$(warning ****** MSMSTEPPE code name is: $(MSMSTEPPE))
 # Video seccomp policy files
 PRODUCT_COPY_FILES += \
     device/qcom/$(MSMSTEPPE)/seccomp/mediacodec-seccomp.policy:$(TARGET_COPY_OUT_VENDOR)/etc/seccomp_policy/mediacodec.policy \
