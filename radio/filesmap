@@ -38,7 +38,7 @@ xbl_config.elf          /dev/block/bootdevice/by-name/xbl_config
 tz.mbn                  /dev/block/bootdevice/by-name/tz
 aop.mbn                 /dev/block/bootdevice/by-name/aop
 hyp.mbn                 /dev/block/bootdevice/by-name/hyp
-keymaster64.mbn         /dev/block/bootdevice/by-name/keymaster
+km4.mbn                 /dev/block/bootdevice/by-name/keymaster
 cmnlib.mbn              /dev/block/bootdevice/by-name/cmnlib
 cmnlib64.mbn            /dev/block/bootdevice/by-name/cmnlib64
 abl.elf                 /dev/block/bootdevice/by-name/abl
@@ -48,6 +48,7 @@ storsec.mbn             /dev/block/bootdevice/by-name/storsec
 imagefv.elf             /dev/block/bootdevice/by-name/imagefv
 vbmeta.img              /dev/block/bootdevice/by-name/vbmeta
 dtbo.img                /dev/block/bootdevice/by-name/dtbo
+uefi_sec.mbn            /dev/block/bootdevice/by-name/uefisecapp
 
 # filename + .bak       backup partition
 
@@ -56,16 +57,17 @@ xbl_config.elf.bak      /dev/block/bootdevice/by-name/xbl_configbak
 tz.mbn.bak              /dev/block/bootdevice/by-name/tzbak
 aop.mbn.bak             /dev/block/bootdevice/by-name/aopbak
 hyp.mbn.bak             /dev/block/bootdevice/by-name/hypbak
-keymaster64.mbn.bak     /dev/block/bootdevice/by-name/keymasterbak
+km4.mbn.bak             /dev/block/bootdevice/by-name/keymasterbak
 cmnlib.mbn.bak          /dev/block/bootdevice/by-name/cmnlibbak
 cmnlib64.mbn.bak        /dev/block/bootdevice/by-name/cmnlib64bak
 abl.elf.bak             /dev/block/bootdevice/by-name/ablbak
 devcfg.mbn.bak          /dev/block/bootdevice/by-name/devcfgbak
 qupv3fw.elf.bak         /dev/block/bootdevice/by-name/qupfwbak
-storsec.mbn.bak         /dev/block/bootdevice/by-name/storsecbak
 vbmeta.img.bak          /dev/block/bootdevice/by-name/vbmetabak
 dtbo.img.bak            /dev/block/bootdevice/by-name/dtbobak
 imagefv.elf.bak         /dev/block/bootdevice/by-name/imagefvbak
+uefi_sec.mbn.bak        /dev/block/bootdevice/by-name/uefisecappbak
+
 
 # For multiple file firmware images that differ from *.mbn and *.bin
 # you can specify filename.* to direct all files to the same location.

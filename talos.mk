@@ -1,5 +1,14 @@
 # Enable AVB 2.0
 BOARD_AVB_ENABLE := true
+TARGET_DEFINES_DALVIK_HEAP := true
+
+#Inherit all except heap growth limit from phone-xhdpi-2048-dalvik-heap.mk
+PRODUCT_PROPERTY_OVERRIDES  += \
+          dalvik.vm.heapstartsize=8m \
+          dalvik.vm.heapsize=256m \
+          dalvik.vm.heaptargetutilization=0.75 \
+          dalvik.vm.heapminfree=512k \
+          dalvik.vm.heapmaxfree=8m
 
 
 # Enable chain partition for system, to facilitate system-only OTA in Treble.
@@ -35,8 +44,6 @@ PRODUCT_CHARACTERISTICS := nosdcard
 
 BOARD_FRP_PARTITION_NAME := frp
 
-# WLAN chipset
-WLAN_CHIPSET := qca_cld3
 
 #Android EGL implementation
 PRODUCT_PACKAGES += libGLES_android
@@ -57,7 +64,7 @@ PRODUCT_PACKAGES += telephony-ext
 TARGET_ENABLE_QC_AV_ENHANCEMENTS := true
 
 TARGET_DISABLE_DASH := true
-TARGET_DISABLE_QTI_VPP := true
+TARGET_DISABLE_QTI_VPP := false
 
 ifneq ($(TARGET_DISABLE_DASH), true)
     PRODUCT_BOOT_JARS += qcmediaplayer
@@ -78,7 +85,14 @@ PRODUCT_COPY_FILES += device/qcom/$(MSMSTEPPE)/media_codecs.xml:$(TARGET_COPY_OU
 PRODUCT_COPY_FILES += device/qcom/$(MSMSTEPPE)/media_codecs_vendor.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_vendor.xml
 PRODUCT_COPY_FILES += device/qcom/$(MSMSTEPPE)/media_codecs_vendor_audio.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_vendor_audio.xml
 
+PRODUCT_COPY_FILES += device/qcom/$(MSMSTEPPE)/media_codecs_sm7150_v0.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_sm7150_v0.xml
+PRODUCT_COPY_FILES += device/qcom/$(MSMSTEPPE)/media_codecs_sm7150_v1.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_sm7150_v1.xml
+PRODUCT_COPY_FILES += device/qcom/$(MSMSTEPPE)/media_codecs_sm7150_v0.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_vendor_sm7150_v0.xml
+PRODUCT_COPY_FILES += device/qcom/$(MSMSTEPPE)/media_codecs_sm7150_v1.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_vendor_sm7150_v1.xml
+
 PRODUCT_COPY_FILES += device/qcom/$(MSMSTEPPE)/media_codecs_performance.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_performance.xml
+PRODUCT_COPY_FILES += device/qcom/$(MSMSTEPPE)/media_codecs_performance_sm7150_v0.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_performance_sm7150_v0.xml
+PRODUCT_COPY_FILES += device/qcom/$(MSMSTEPPE)/media_codecs_performance_sm7150_v1.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_performance_sm7150_v1.xml
 endif #TARGET_ENABLE_QC_AV_ENHANCEMENTS
 
 PRODUCT_PACKAGES += android.hardware.media.omx@1.0-impl
@@ -146,9 +160,6 @@ endif
 
 #Healthd packages
 PRODUCT_PACKAGES += \
-    android.hardware.health@1.0-impl \
-    android.hardware.health@1.0-convert \
-    android.hardware.health@1.0-service \
     libhealthd.msm
 
 # Fingerprint feature
@@ -192,42 +203,31 @@ PRODUCT_PACKAGES += \
     android.hardware.vibrator@1.0-impl \
     android.hardware.vibrator@1.0-service \
 
-# WLAN host driver
-ifneq ($(WLAN_CHIPSET),)
-PRODUCT_PACKAGES += $(WLAN_CHIPSET)_wlan.ko
-endif
-
-# WLAN driver configuration file
-PRODUCT_COPY_FILES += \
-    device/qcom/$(MSMSTEPPE)/WCNSS_qcom_cfg.ini:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/WCNSS_qcom_cfg.ini
-
 # MIDI feature
 PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.software.midi.xml:system/etc/permissions/android.software.midi.xml
 
-PRODUCT_PACKAGES += \
-    wpa_supplicant_overlay.conf \
-    p2p_supplicant_overlay.conf
+PRODUCT_COPY_FILES += \
+    frameworks/native/data/etc/android.hardware.fingerprint.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.fingerprint.xml
 
-#for wlan
+PRODUCT_RESTRICT_VENDOR_FILES := false
+
+# USB default HAL
 PRODUCT_PACKAGES += \
-    wificond \
-    wifilogd
+    android.hardware.usb@1.0-service
 
 # Sensor conf files
 PRODUCT_COPY_FILES += \
     device/qcom/$(MSMSTEPPE)/sensors/hals.conf:$(TARGET_COPY_OUT_VENDOR)/etc/sensors/hals.conf \
-    frameworks/native/data/etc/android.hardware.sensor.accelerometer.xml:system/etc/permissions/android.hardware.sensor.accelerometer.xml \
-    frameworks/native/data/etc/android.hardware.sensor.compass.xml:system/etc/permissions/android.hardware.sensor.compass.xml \
-    frameworks/native/data/etc/android.hardware.sensor.gyroscope.xml:system/etc/permissions/android.hardware.sensor.gyroscope.xml \
-    frameworks/native/data/etc/android.hardware.sensor.light.xml:system/etc/permissions/android.hardware.sensor.light.xml \
-    frameworks/native/data/etc/android.hardware.sensor.proximity.xml:system/etc/permissions/android.hardware.sensor.proximity.xml \
-    frameworks/native/data/etc/android.hardware.sensor.barometer.xml:system/etc/permissions/android.hardware.sensor.barometer.xml \
-    frameworks/native/data/etc/android.hardware.sensor.stepcounter.xml:system/etc/permissions/android.hardware.sensor.stepcounter.xml \
-    frameworks/native/data/etc/android.hardware.sensor.stepdetector.xml:system/etc/permissions/android.hardware.sensor.stepdetector.xml \
-    frameworks/native/data/etc/android.hardware.sensor.ambient_temperature.xml:system/etc/permissions/android.hardware.sensor.ambient_temperature.xml \
-    frameworks/native/data/etc/android.hardware.sensor.relative_humidity.xml:system/etc/permissions/android.hardware.sensor.relative_humidity.xml \
-    frameworks/native/data/etc/android.hardware.sensor.hifi_sensors.xml:system/etc/permissions/android.hardware.sensor.hifi_sensors.xml
+    frameworks/native/data/etc/android.hardware.sensor.accelerometer.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.sensor.accelerometer.xml \
+    frameworks/native/data/etc/android.hardware.sensor.compass.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.sensor.compass.xml \
+    frameworks/native/data/etc/android.hardware.sensor.gyroscope.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.sensor.gyroscope.xml \
+    frameworks/native/data/etc/android.hardware.sensor.light.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.sensor.light.xml \
+    frameworks/native/data/etc/android.hardware.sensor.proximity.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.sensor.proximity.xml \
+    frameworks/native/data/etc/android.hardware.sensor.barometer.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.sensor.barometer.xml \
+    frameworks/native/data/etc/android.hardware.sensor.stepcounter.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.sensor.stepcounter.xml \
+    frameworks/native/data/etc/android.hardware.sensor.stepdetector.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.sensor.stepdetector.xml \
+    frameworks/native/data/etc/android.hardware.sensor.hifi_sensors.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.sensor.hifi_sensors.xml
 
 
 # Kernel modules install path
@@ -239,7 +239,15 @@ TARGET_SUPPORT_VULKAN_VERSION_1_1 := false
 
 #FEATURE_OPENGLES_EXTENSION_PACK support string config file
 PRODUCT_COPY_FILES += \
-    frameworks/native/data/etc/android.hardware.opengles.aep.xml:system/etc/permissions/android.hardware.opengles.aep.xml
+    frameworks/native/data/etc/android.hardware.opengles.aep.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.opengles.aep.xml
+
+# system prop for opengles version
+#
+# 196608 is decimal for 0x30000 to report version 3
+# 196609 is decimal for 0x30001 to report version 3.1
+# 196610 is decimal for 0x30002 to report version 3.2
+PRODUCT_PROPERTY_OVERRIDES  += \
+    ro.opengles.version=196610
 
 #system prop for Bluetooth SOC type
 PRODUCT_PROPERTY_OVERRIDES += \
@@ -258,6 +266,12 @@ ENABLE_KM_4_0 := true
 # Enable flag to support slow devices
 TARGET_PRESIL_SLOW_BOARD := true
 
+
+#----------------------------------------------------------------------
+# wlan specific
+#----------------------------------------------------------------------
+include device/qcom/wlan/talos/wlan.mk
+
 # dm-verity definitions
 ifneq ($(BOARD_AVB_ENABLE), true)
  PRODUCT_SUPPORTS_VERITY := true
@@ -270,3 +284,7 @@ PRODUCT_COMPATIBLE_PROPERTY_OVERRIDE:=true
 TARGET_MOUNT_POINTS_SYMLINKS := false
 
 ENABLE_VENDOR_RIL_SERVICE := true
+
+#Thermal
+PRODUCT_PACKAGES += android.hardware.thermal@1.0-impl \
+                    android.hardware.thermal@1.0-service

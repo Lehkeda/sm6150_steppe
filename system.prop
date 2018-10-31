@@ -54,14 +54,6 @@ persist.vendor.data.mode=concurrent
 #system props for time-services
 persist.timed.enable=true
 
-#
-# system prop for opengles version
-#
-# 196608 is decimal for 0x30000 to report version 3
-# 196609 is decimal for 0x30001 to report version 3.1
-# 196610 is decimal for 0x30002 to report version 3.2
-ro.opengles.version=196610
-
 # system property for maximum number of HFP client connections
 bt.max.hfpclient.connections=1
 
@@ -127,6 +119,9 @@ sys.qca1530=detect
 #Enable stm events
 persist.debug.coresight.config=stm-events
 
+#Enable virtual display.
+debug.sf.enable_hwc_vds=1
+
 #hwui properties
 ro.hwui.texture_cache_size=72
 ro.hwui.layer_cache_size=48
@@ -160,3 +155,21 @@ vendor.iop.enable_prefetch_ofr=1
 #Property to enable perf boosts from System Server
 vendor.perf.gestureflingboost.enable=true
 vendor.display.disable_hw_recovery=1
+
+#Expose aux camera for below packages
+vendor.camera.aux.packagelist=org.codeaurora.snapcam
+
+# ro.location properties below are used in conjunction
+# with NLP_MODE setting in /vendor/etc/izat.conf
+# either as the main network provider or as a fallback
+# provider depending on NLP_MODE that is set
+# These properties are optional and will not cause
+# issues if not set to existing packages.
+# ro.location.osnlp.package sets the name of default
+# OS sepecific network location provider package to use
+# ro.location.osnlp.region.package is set to the name
+# of the alternative network location provider package
+# to be used for a particular region where the default
+# network location provider is not functional
+ro.location.osnlp.package=com.google.android.gms
+ro.location.osnlp.region.package=
