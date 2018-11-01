@@ -86,8 +86,8 @@ PRODUCT_COPY_FILES += device/qcom/$(MSMSTEPPE)/media_codecs_vendor_audio.xml:$(T
 
 PRODUCT_COPY_FILES += device/qcom/$(MSMSTEPPE)/media_codecs_sm7150_v0.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_sm7150_v0.xml
 PRODUCT_COPY_FILES += device/qcom/$(MSMSTEPPE)/media_codecs_sm7150_v1.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_sm7150_v1.xml
-PRODUCT_COPY_FILES += device/qcom/$(MSMSTEPPE)/media_codecs_sm7150_v0.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_vendor_sm7150_v0.xml
-PRODUCT_COPY_FILES += device/qcom/$(MSMSTEPPE)/media_codecs_sm7150_v1.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_vendor_sm7150_v1.xml
+PRODUCT_COPY_FILES += device/qcom/$(MSMSTEPPE)/media_codecs_vendor_sm7150_v0.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_vendor_sm7150_v0.xml
+PRODUCT_COPY_FILES += device/qcom/$(MSMSTEPPE)/media_codecs_vendor_sm7150_v1.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_vendor_sm7150_v1.xml
 
 PRODUCT_COPY_FILES += device/qcom/$(MSMSTEPPE)/media_codecs_performance.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_performance.xml
 PRODUCT_COPY_FILES += device/qcom/$(MSMSTEPPE)/media_codecs_performance_sm7150_v0.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_performance_sm7150_v0.xml
