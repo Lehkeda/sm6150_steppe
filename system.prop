@@ -156,6 +156,9 @@ vendor.iop.enable_prefetch_ofr=1
 vendor.perf.gestureflingboost.enable=true
 vendor.display.disable_hw_recovery=1
 
+#Property to enable WorkloadClassifier
+vendor.perf.workloadclassifier.enable=true
+
 #Expose aux camera for below packages
 vendor.camera.aux.packagelist=org.codeaurora.snapcam
 
