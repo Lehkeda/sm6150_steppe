@@ -24,7 +24,7 @@ $(call inherit-product, device/qcom/common/common64.mk)
 
 PRODUCT_NAME := $(MSMSTEPPE)
 PRODUCT_DEVICE := $(MSMSTEPPE)
-PRODUCT_BRAND := Android
+PRODUCT_BRAND := qti
 PRODUCT_MODEL := $(MSMSTEPPE) for arm64
 
 #Initial bringup flags
@@ -51,7 +51,6 @@ PRODUCT_PACKAGES += libGLES_android
 -include $(QCPATH)/common/config/qtic-config.mk
 -include hardware/qcom/display/config/talos.mk
 
-$(warning ****** MSMSTEPPE code name is: $(MSMSTEPPE))
 # Video seccomp policy files
 PRODUCT_COPY_FILES += \
     device/qcom/$(MSMSTEPPE)/seccomp/mediacodec-seccomp.policy:$(TARGET_COPY_OUT_VENDOR)/etc/seccomp_policy/mediacodec.policy \
@@ -87,8 +86,8 @@ PRODUCT_COPY_FILES += device/qcom/$(MSMSTEPPE)/media_codecs_vendor_audio.xml:$(T
 
 PRODUCT_COPY_FILES += device/qcom/$(MSMSTEPPE)/media_codecs_sm7150_v0.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_sm7150_v0.xml
 PRODUCT_COPY_FILES += device/qcom/$(MSMSTEPPE)/media_codecs_sm7150_v1.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_sm7150_v1.xml
-PRODUCT_COPY_FILES += device/qcom/$(MSMSTEPPE)/media_codecs_sm7150_v0.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_vendor_sm7150_v0.xml
-PRODUCT_COPY_FILES += device/qcom/$(MSMSTEPPE)/media_codecs_sm7150_v1.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_vendor_sm7150_v1.xml
+PRODUCT_COPY_FILES += device/qcom/$(MSMSTEPPE)/media_codecs_vendor_sm7150_v0.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_vendor_sm7150_v0.xml
+PRODUCT_COPY_FILES += device/qcom/$(MSMSTEPPE)/media_codecs_vendor_sm7150_v1.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_vendor_sm7150_v1.xml
 
 PRODUCT_COPY_FILES += device/qcom/$(MSMSTEPPE)/media_codecs_performance.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_performance.xml
 PRODUCT_COPY_FILES += device/qcom/$(MSMSTEPPE)/media_codecs_performance_sm7150_v0.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_performance_sm7150_v0.xml
@@ -149,8 +148,12 @@ PRODUCT_PACKAGES += update_engine \
 PRODUCT_PACKAGES_DEBUG += bootctl
 endif
 
-DEVICE_MANIFEST_FILE := device/qcom/talos/manifest.xml
-DEVICE_FRAMEWORK_MANIFEST_FILE := device/qcom/talos/framework_manifest.xml
+DEVICE_MANIFEST_FILE := device/qcom/$(MSMSTEPPE)/manifest.xml
+DEVICE_MATRIX_FILE := device/qcom/common/compatibility_matrix.xml
+DEVICE_FRAMEWORK_MANIFEST_FILE := device/qcom/$(MSMSTEPPE)/framework_manifest.xml
+DEVICE_FRAMEWORK_COMPATIBILITY_MATRIX_FILE += \
+    device/qcom/common/vendor_framework_compatibility_matrix.xml \
+    device/qcom/talos/vendor_framework_compatibility_matrix.xml
 
 TARGET_USES_NQ_NFC := true
 ifeq ($(TARGET_USES_NQ_NFC),true)
@@ -243,6 +246,14 @@ PRODUCT_PROPERTY_OVERRIDES  += \
 PRODUCT_PROPERTY_OVERRIDES += \
     vendor.qcom.bluetooth.soc=cherokee
 
+# Property to enable app trigger
+PRODUCT_PROPERTY_OVERRIDES  += \
+  ro.vendor.at_library=libqti-at.so\
+  persist.vendor.qti.games.gt.prof=1
+
+#Property to enable IO cgroups
+PRODUCT_PROPERTY_OVERRIDES += ro.vendor.iocgrp.config=1
+
 #Enable full treble flag
 PRODUCT_FULL_TREBLE_OVERRIDE := true
 PRODUCT_VENDOR_MOVE_ENABLED := true
@@ -278,3 +289,6 @@ ENABLE_VENDOR_RIL_SERVICE := true
 #Thermal
 PRODUCT_PACKAGES += android.hardware.thermal@1.0-impl \
                     android.hardware.thermal@1.0-service
+
+TARGET_USES_MKE2FS := true
+$(call inherit-product, build/make/target/product/product_launched_with_p.mk)
