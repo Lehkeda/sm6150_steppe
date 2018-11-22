@@ -246,6 +246,10 @@ PRODUCT_PROPERTY_OVERRIDES  += \
 PRODUCT_PROPERTY_OVERRIDES += \
     vendor.qcom.bluetooth.soc=cherokee
 
+# Property to disable ZSL mode
+PRODUCT_PROPERTY_OVERRIDES += \
+    camera.disable_zsl_mode=1
+
 # Property to enable app trigger
 PRODUCT_PROPERTY_OVERRIDES  += \
   ro.vendor.at_library=libqti-at.so\
