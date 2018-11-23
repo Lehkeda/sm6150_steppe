@@ -107,4 +107,17 @@ IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
             <instance>vppService</instance>
         </interface>
     </hal>
+    <!-- MLS Services -->
+   <hal format="hidl" optional="true">
+        <name>vendor.qti.hardware.mlshal</name>
+        <version>1.0</version>
+        <interface>
+            <name>IMlsDap</name>
+            <instance>mlsdaphal</instance>
+        </interface>
+        <interface>
+            <name>IMlsVnc</name>
+            <instance>mlsvnchal</instance>
+        </interface>
+   </hal>
 </compatibility-matrix>
