@@ -201,6 +201,10 @@ PRODUCT_PACKAGES += android.hardware.camera.provider@2.4-service_64
 PRODUCT_PACKAGES += \
     android.hardware.vibrator@1.0-impl \
     android.hardware.vibrator@1.0-service \
+# Context hub HAL
+PRODUCT_PACKAGES += \
+    android.hardware.contexthub@1.0-impl.generic \
+    android.hardware.contexthub@1.0-service
 
 # MIDI feature
 PRODUCT_COPY_FILES += \
