@@ -18,7 +18,7 @@ BOARD_AVB_SYSTEM_ROLLBACK_INDEX := 0
 BOARD_AVB_SYSTEM_ROLLBACK_INDEX_LOCATION := 2
 
 #target name, shall be used in all makefiles
-MSMSTEPPE = talos
+MSMSTEPPE = sm6150
 
 $(call inherit-product, device/qcom/common/common64.mk)
 
@@ -153,7 +153,7 @@ DEVICE_MATRIX_FILE := device/qcom/common/compatibility_matrix.xml
 DEVICE_FRAMEWORK_MANIFEST_FILE := device/qcom/$(MSMSTEPPE)/framework_manifest.xml
 DEVICE_FRAMEWORK_COMPATIBILITY_MATRIX_FILE += \
     device/qcom/common/vendor_framework_compatibility_matrix.xml \
-    device/qcom/talos/vendor_framework_compatibility_matrix.xml
+    device/qcom/$(MSMSTEPPE)/vendor_framework_compatibility_matrix.xml
 
 TARGET_USES_NQ_NFC := true
 ifeq ($(TARGET_USES_NQ_NFC),true)
