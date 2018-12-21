@@ -42,6 +42,15 @@ on init
     write /dev/stune/top-app/schedtune.colocate 1
     write /sys/module/qpnp_rtc/parameters/poweron_alarm 1
 
+# Add a cpuset for the camera daemon
+# We want all cores for camera
+    mkdir /dev/cpuset/camera-daemon
+    write /dev/cpuset/camera-daemon/cpus 0-7
+    write /dev/cpuset/camera-daemon/mems 0
+    chown cameraserver cameraserver /dev/cpuset/camera-daemon
+    chown cameraserver cameraserver /dev/cpuset/camera-daemon/tasks
+    chmod 0660 /dev/cpuset/camera-daemon/tasks
+
 on fs
     wait /dev/block/platform/soc/${ro.boot.bootdevice}
     symlink /dev/block/platform/soc/${ro.boot.bootdevice} /dev/block/bootdevice
@@ -91,15 +100,6 @@ on boot
     write /dev/cpuset/foreground/boost/cpus 0-7
     write /dev/cpuset/background/cpus 0-7
     write /dev/cpuset/system-background/cpus 0-7
-
-# Add a cpuset for the camera daemon
-# We want all cores for camera
-    mkdir /dev/cpuset/camera-daemon
-    write /dev/cpuset/camera-daemon/cpus 0-3
-    write /dev/cpuset/camera-daemon/mems 0
-    chown cameraserver cameraserver /dev/cpuset/camera-daemon
-    chown cameraserver cameraserver /dev/cpuset/camera-daemon/tasks
-    chmod 0660 /dev/cpuset/camera-daemon/tasks
 
 
 # access permissions for FPC service
@@ -158,6 +158,7 @@ on property:init.svc.vendor.per_mgr=running
 
 on property:sys.shutdown.requested=*
     stop vendor.per_proxy
+    stop vendor.ims_rtp_daemon
 
 on charger
     start vendor.hvdcp_opti
