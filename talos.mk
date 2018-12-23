@@ -11,7 +11,7 @@ BOARD_AVB_SYSTEM_ROLLBACK_INDEX_LOCATION := 2
 #target name, shall be used in all makefiles
 MSMSTEPPE = talos
 
-$(call inherit-product, device/qcom/common/common64.mk)
+$(call inherit-product, device/qcom/qssi/common64.mk)
 
 PRODUCT_NAME := $(MSMSTEPPE)
 PRODUCT_DEVICE := $(MSMSTEPPE)
@@ -266,3 +266,13 @@ PRODUCT_COMPATIBLE_PROPERTY_OVERRIDE:=true
 TARGET_MOUNT_POINTS_SYMLINKS := false
 
 ENABLE_VENDOR_RIL_SERVICE := true
+
+
+###################################################################################
+# This is the End of target.mk file.
+# Now, Pickup other split product.mk files:
+###################################################################################
+# TODO: Relocate the system product.mk files pickup into qssi lunch, once it is up.
+$(call inherit-product-if-exists, vendor/qcom/defs/product-defs/system/*.mk)
+$(call inherit-product-if-exists, vendor/qcom/defs/product-defs/vendor/*.mk)
+###################################################################################
