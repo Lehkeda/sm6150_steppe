@@ -73,7 +73,7 @@ ifneq ($(strip $(QCPATH)),)
     PRODUCT_BOOT_JARS += WfdCommon
 endif
 ifneq ($(strip $(QCPATH)),)
-    PRODUCT_BOOT_JARS += libprotobuf-java_mls
+    #PRODUCT_BOOT_JARS += libprotobuf-java_mls
 endif
 # Video platform properties file
 PRODUCT_COPY_FILES += hardware/qcom/media/conf_files/msmsteppe/system_properties.xml:$(TARGET_COPY_OUT_VENDOR)/etc/system_properties.xml
