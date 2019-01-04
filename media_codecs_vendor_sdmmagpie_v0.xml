@@ -83,7 +83,7 @@ Only the three quirks included above are recognized at this point:
 -->
 
 <!--
- sm7150 Non-Secure decoder capabilities
+ sdmmagpie Non-Secure decoder capabilities
  _________________________________________________________
  | Codec       | W       H       fps     Mbps    MB/s    |
  |_____________|_________________________________________|
@@ -102,7 +102,7 @@ Only the three quirks included above are recognized at this point:
  | mpeg2       | 1920    1088    30      40      244800  |
  |_____________|_________________________________________|
 
- sm7150 Secure decoder capabilities
+ sdmmagpie Secure decoder capabilities
  ______________________________________________________
  | Codec    | W       H       fps     Mbps    MB/s    |
  |__________|_________________________________________|
@@ -115,7 +115,7 @@ Only the three quirks included above are recognized at this point:
  | mpeg2    | 1920    1088    30      40      244800  |
  |__________|_________________________________________|
 
- sm7150 Non-Secure encoder capabilities (Secure not supported)
+ sdmmagpie Non-Secure encoder capabilities (Secure not supported)
  ______________________________________________________
  | Codec    | W       H       fps     Mbps    MB/s    |
  |__________|_________________________________________|
