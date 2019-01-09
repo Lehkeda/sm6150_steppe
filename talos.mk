@@ -11,7 +11,7 @@ BOARD_AVB_SYSTEM_ROLLBACK_INDEX_LOCATION := 2
 #target name, shall be used in all makefiles
 MSMSTEPPE = talos
 
-$(call inherit-product, device/qcom/common/common64.mk)
+$(call inherit-product, device/qcom/qssi/common64.mk)
 
 PRODUCT_NAME := $(MSMSTEPPE)
 PRODUCT_DEVICE := $(MSMSTEPPE)
@@ -134,8 +134,12 @@ PRODUCT_PACKAGES += update_engine \
 PRODUCT_PACKAGES_DEBUG += bootctl
 endif
 
-DEVICE_MANIFEST_FILE := device/qcom/talos/manifest.xml
-DEVICE_FRAMEWORK_MANIFEST_FILE := device/qcom/talos/framework_manifest.xml
+DEVICE_MANIFEST_FILE := device/qcom/$(MSMSTEPPE)/manifest.xml
+DEVICE_MATRIX_FILE := device/qcom/common/compatibility_matrix.xml
+DEVICE_FRAMEWORK_MANIFEST_FILE := device/qcom/$(MSMSTEPPE)/framework_manifest.xml
+DEVICE_FRAMEWORK_COMPATIBILITY_MATRIX_FILE += \
+    device/qcom/common/vendor_framework_compatibility_matrix.xml \
+    device/qcom/talos/vendor_framework_compatibility_matrix.xml
 
 TARGET_USES_NQ_NFC := true
 ifeq ($(TARGET_USES_NQ_NFC),true)
@@ -266,3 +270,13 @@ PRODUCT_COMPATIBLE_PROPERTY_OVERRIDE:=true
 TARGET_MOUNT_POINTS_SYMLINKS := false
 
 ENABLE_VENDOR_RIL_SERVICE := true
+
+
+###################################################################################
+# This is the End of target.mk file.
+# Now, Pickup other split product.mk files:
+###################################################################################
+# TODO: Relocate the system product.mk files pickup into qssi lunch, once it is up.
+$(call inherit-product-if-exists, vendor/qcom/defs/product-defs/system/*.mk)
+$(call inherit-product-if-exists, vendor/qcom/defs/product-defs/vendor/*.mk)
+###################################################################################
