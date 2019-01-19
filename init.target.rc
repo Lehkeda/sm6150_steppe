@@ -41,6 +41,13 @@ on init
     write /dev/stune/foreground/schedtune.colocate 0
     write /dev/stune/top-app/schedtune.colocate 1
     write /sys/module/qpnp_rtc/parameters/poweron_alarm 1
+    wait /dev/block/platform/soc/${ro.boot.bootdevice}
+    symlink /dev/block/platform/soc/${ro.boot.bootdevice} /dev/block/bootdevice
+    start vendor.qseecomd
+    start keymaster-4-0
+
+on early-fs
+    start vold
 
 # Add a cpuset for the camera daemon
 # We want all cores for camera
@@ -52,9 +59,7 @@ on init
     chmod 0660 /dev/cpuset/camera-daemon/tasks
 
 on fs
-    wait /dev/block/platform/soc/${ro.boot.bootdevice}
-    symlink /dev/block/platform/soc/${ro.boot.bootdevice} /dev/block/bootdevice
-    mount_all /vendor/etc/fstab.qcom
+    mount_all /vendor/etc/fstab.qcom --early
     chown root system /mnt/vendor/persist
     chmod 0771 /mnt/vendor/persist
     restorecon_recursive /mnt/vendor/persist
@@ -63,9 +68,12 @@ on fs
 on post-fs
     # set RLIMIT_MEMLOCK to 64MB
     setrlimit 8 67108864 67108864
-    start vendor.qseecomd
-    exec - system system -- /vendor/bin/init.qti.qseecomd.sh
     write /dev/ipa 1
+
+on late-fs
+    wait_for_prop hwservicemanager.ready true
+    exec_start wait_for_keymaster
+    mount_all /vendor/etc/fstab.qcom --late
 
 service sec_nvm /vendor/bin/sec_nvm
     class core
@@ -87,6 +95,7 @@ on post-fs-data
 # Silver Only configuration cannot work with 0-7
 on boot
     chown system system /sys/kernel/hbtp/display_pwr
+    chown system system /sys/kernel/qvr_external_sensor/fd
     start rmt_storage
     start rfs_access
     write /dev/cpuset/top-app/cpus 0-3
