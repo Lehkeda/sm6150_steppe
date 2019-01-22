@@ -307,3 +307,7 @@ ro.crypto.volume.filenames_mode = "aes-256-cts" \
 ro.crypto.allow_encrypt_override = true
 
 $(call inherit-product, build/make/target/product/product_launched_with_p.mk)
+
+PRODUCT_COPY_FILES += \
+    device/qcom/$(MSMSTEPPE)/manifest_moorea.xml:$(TARGET_COPY_OUT_VENDOR)/odm/etc/vintf/manifest_365.xml \
+    device/qcom/$(MSMSTEPPE)/manifest_moorea.xml:$(TARGET_COPY_OUT_VENDOR)/odm/etc/vintf/manifest_366.xml
