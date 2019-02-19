@@ -252,6 +252,10 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     vendor.qcom.bluetooth.soc=cherokee
 
+#vendor prop to enable advanced network scanning
+PRODUCT_PROPERTY_OVERRIDES += \
+    persist.vendor.radio.enableadvancedscan=true
+
 #Enable full treble flag
 PRODUCT_FULL_TREBLE_OVERRIDE := true
 PRODUCT_VENDOR_MOVE_ENABLED := true
