@@ -84,7 +84,7 @@ endif #TARGET_ENABLE_QC_AV_ENHANCEMENTS
 PRODUCT_PACKAGES += android.hardware.media.omx@1.0-impl
 
 # Audio configuration file
--include $(TOPDIR)hardware/qcom/audio/configs/msmsteppe/msmsteppe.mk
+-include $(TOPDIR)vendor/qcom/opensource/audio-hal/primary-hal/configs/msmsteppe/msmsteppe.mk
 #Audio DLKM
 AUDIO_DLKM := audio_apr.ko
 AUDIO_DLKM += audio_wglink.ko
