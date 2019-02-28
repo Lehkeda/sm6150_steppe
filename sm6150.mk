@@ -9,7 +9,7 @@ BOARD_AVB_SYSTEM_ROLLBACK_INDEX := 0
 BOARD_AVB_SYSTEM_ROLLBACK_INDEX_LOCATION := 2
 
 #target name, shall be used in all makefiles
-MSMSTEPPE = talos
+MSMSTEPPE = sm6150
 
 $(call inherit-product, device/qcom/qssi/common64.mk)
 
@@ -32,8 +32,11 @@ TARGET_USES_RRO := true
 TARGET_KERNEL_VERSION := 4.14
 # default is nosdcard, S/W button enabled in resource
 PRODUCT_CHARACTERISTICS := nosdcard
-
 BOARD_FRP_PARTITION_NAME := frp
+
+# Kernel modules install path
+KERNEL_MODULES_INSTALL := dlkm
+KERNEL_MODULES_OUT := out/target/product/$(PRODUCT_NAME)/$(KERNEL_MODULES_INSTALL)/lib/modules
 
 # WLAN chipset
 WLAN_CHIPSET := qca_cld3
@@ -85,6 +88,7 @@ PRODUCT_PACKAGES += android.hardware.media.omx@1.0-impl
 
 # Audio configuration file
 -include $(TOPDIR)vendor/qcom/opensource/audio-hal/primary-hal/configs/msmsteppe/msmsteppe.mk
+
 #Audio DLKM
 AUDIO_DLKM := audio_apr.ko
 AUDIO_DLKM += audio_wglink.ko
