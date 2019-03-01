@@ -128,4 +128,12 @@ IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
          <instance>cvphalservice</instance>
        </interface>
    </hal>
+   <hal format="hidl" optional="true">
+       <name>vendor.display.config</name>
+       <version>1.0-8</version>
+       <interface>
+            <name>IDisplayConfig</name>
+            <instance>default</instance>
+       </interface>
+   </hal>
 </compatibility-matrix>
