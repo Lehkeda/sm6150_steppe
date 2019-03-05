@@ -26,6 +26,7 @@ TARGET_NO_BOOTLOADER := false
 TARGET_USES_UEFI := true
 TARGET_NO_KERNEL := false
 BOARD_PRESIL_BUILD := true
+-include vendor/qcom/prebuilt/talos/BoardConfigVendor.mk
 -include $(QCPATH)/common/$(MSMSTEPPE)/BoardConfigVendor.mk
 
 # Some framework code requires this to enable BT
