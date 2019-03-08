@@ -190,9 +190,6 @@ ADD_RADIO_FILES := true
 #Generate DTBO image
 BOARD_KERNEL_SEPARATED_DTBO := true
 
-#Enable LM
-TARGET_USES_LM := true
-
 # Enable QG user space
 PMIC_QG_SUPPORT := true
 
