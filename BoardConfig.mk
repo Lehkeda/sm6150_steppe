@@ -169,6 +169,8 @@ TARGET_HW_DISK_ENCRYPTION := true
 TARGET_HW_DISK_ENCRYPTION_PERF := true
 
 # Enable dex pre-opt to speed up initial boot
+WITH_DEXPREOPT := false
+WITH_DEXPREOPT_BOOT_IMG_AND_SYSTEM_SERVER_ONLY := true
 ifeq ($(HOST_OS),linux)
     ifeq ($(WITH_DEXPREOPT),)
       WITH_DEXPREOPT := true
