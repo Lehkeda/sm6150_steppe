@@ -94,6 +94,7 @@ PRODUCT_PACKAGES += android.hardware.media.omx@1.0-impl
 
 #Audio DLKM
 AUDIO_DLKM := audio_apr.ko
+AUDIO_DLKM += audio_snd_event.ko
 AUDIO_DLKM += audio_wglink.ko
 AUDIO_DLKM += audio_q6_pdr.ko
 AUDIO_DLKM += audio_q6_notifier.ko

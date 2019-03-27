@@ -118,6 +118,13 @@ BOARD_VENDOR_KERNEL_MODULES := \
     $(KERNEL_MODULES_OUT)/audio_wcd9xxx.ko \
     $(KERNEL_MODULES_OUT)/audio_mbhc.ko \
     $(KERNEL_MODULES_OUT)/audio_wcd934x.ko \
+    $(KERNEL_MODULES_OUT)/audio_wcd937x.ko \
+    $(KERNEL_MODULES_OUT)/audio_wcd937x_slave.ko \
+    $(KERNEL_MODULES_OUT)/audio_bolero_cdc.ko \
+    $(KERNEL_MODULES_OUT)/audio_wsa_macro.ko \
+    $(KERNEL_MODULES_OUT)/audio_va_macro.ko \
+    $(KERNEL_MODULES_OUT)/audio_rx_macro.ko \
+    $(KERNEL_MODULES_OUT)/audio_tx_macro.ko \
     $(KERNEL_MODULES_OUT)/audio_wcd_spi.ko \
     $(KERNEL_MODULES_OUT)/audio_native.ko \
     $(KERNEL_MODULES_OUT)/audio_machine_talos.ko \
