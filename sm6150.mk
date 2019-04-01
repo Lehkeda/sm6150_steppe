@@ -179,6 +179,10 @@ PRODUCT_PACKAGES += \
     android.hardware.configstore@1.0-service \
     android.hardware.broadcastradio@1.0-impl
 
+PRODUCT_HOST_PACKAGES += \
+    brillo_update_payload \
+    configstore_xmlparser
+
 # FBE support
 PRODUCT_COPY_FILES += \
     device/qcom/$(MSMSTEPPE)/init.qti.qseecomd.sh:$(TARGET_COPY_OUT_VENDOR)/bin/init.qti.qseecomd.sh
