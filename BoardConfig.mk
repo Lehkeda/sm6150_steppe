@@ -4,6 +4,8 @@
 #
 BUILD_BROKEN_ANDROIDMK_EXPORTS=true
 BUILD_BROKEN_DUP_COPY_HEADERS=true
+# TODO(b/124534788): Temporarily allow eng and debug LOCAL_MODULE_TAGS
+BUILD_BROKEN_ENG_DEBUG_TAGS:=true
 
 TARGET_BOARD_PLATFORM := $(MSMSTEPPE)
 TARGET_SEPOLICY_DIR := msmsteppe
@@ -28,6 +30,7 @@ TARGET_NO_BOOTLOADER := false
 TARGET_USES_UEFI := true
 TARGET_NO_KERNEL := false
 BOARD_PRESIL_BUILD := true
+-include vendor/qcom/prebuilt/talos/BoardConfigVendor.mk
 -include $(QCPATH)/common/$(MSMSTEPPE)/BoardConfigVendor.mk
 
 # Some framework code requires this to enable BT
@@ -118,14 +121,20 @@ BOARD_VENDOR_KERNEL_MODULES := \
     $(KERNEL_MODULES_OUT)/audio_wcd9xxx.ko \
     $(KERNEL_MODULES_OUT)/audio_mbhc.ko \
     $(KERNEL_MODULES_OUT)/audio_wcd934x.ko \
+    $(KERNEL_MODULES_OUT)/audio_wcd937x.ko \
+    $(KERNEL_MODULES_OUT)/audio_wcd937x_slave.ko \
+    $(KERNEL_MODULES_OUT)/audio_bolero_cdc.ko \
+    $(KERNEL_MODULES_OUT)/audio_wsa_macro.ko \
+    $(KERNEL_MODULES_OUT)/audio_va_macro.ko \
+    $(KERNEL_MODULES_OUT)/audio_rx_macro.ko \
+    $(KERNEL_MODULES_OUT)/audio_tx_macro.ko \
     $(KERNEL_MODULES_OUT)/audio_wcd_spi.ko \
     $(KERNEL_MODULES_OUT)/audio_native.ko \
     $(KERNEL_MODULES_OUT)/audio_machine_talos.ko \
     $(KERNEL_MODULES_OUT)/wil6210.ko \
     $(KERNEL_MODULES_OUT)/msm_11ad_proxy.ko \
     $(KERNEL_MODULES_OUT)/mpq-adapter.ko \
-    $(KERNEL_MODULES_OUT)/mpq-dmx-hw-plugin.ko \
-    $(KERNEL_MODULES_OUT)/rdbg.ko
+    $(KERNEL_MODULES_OUT)/mpq-dmx-hw-plugin.ko
 
 BOARD_VENDOR_KERNEL_MODULES += $(shell ls $(KERNEL_MODULES_OUT)/*.ko)
 TARGET_USES_ION := true
@@ -185,6 +194,9 @@ endif
 
 # Enable sensor multi HAL
 USE_SENSOR_MULTI_HAL := true
+
+# Enable sensor Version V_2
+USE_SENSOR_HAL_VER := 2.0
 
 #Add non-hlos files to ota packages
 ADD_RADIO_FILES := true
