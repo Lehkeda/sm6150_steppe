@@ -4,6 +4,8 @@
 #
 BUILD_BROKEN_ANDROIDMK_EXPORTS=true
 BUILD_BROKEN_DUP_COPY_HEADERS=true
+# TODO(b/124534788): Temporarily allow eng and debug LOCAL_MODULE_TAGS
+BUILD_BROKEN_ENG_DEBUG_TAGS:=true
 
 TARGET_BOARD_PLATFORM := $(MSMSTEPPE)
 TARGET_SEPOLICY_DIR := msmsteppe
@@ -28,6 +30,7 @@ TARGET_NO_BOOTLOADER := false
 TARGET_USES_UEFI := true
 TARGET_NO_KERNEL := false
 BOARD_PRESIL_BUILD := true
+-include vendor/qcom/prebuilt/talos/BoardConfigVendor.mk
 -include $(QCPATH)/common/$(MSMSTEPPE)/BoardConfigVendor.mk
 
 # Some framework code requires this to enable BT
@@ -131,8 +134,7 @@ BOARD_VENDOR_KERNEL_MODULES := \
     $(KERNEL_MODULES_OUT)/wil6210.ko \
     $(KERNEL_MODULES_OUT)/msm_11ad_proxy.ko \
     $(KERNEL_MODULES_OUT)/mpq-adapter.ko \
-    $(KERNEL_MODULES_OUT)/mpq-dmx-hw-plugin.ko \
-    $(KERNEL_MODULES_OUT)/rdbg.ko
+    $(KERNEL_MODULES_OUT)/mpq-dmx-hw-plugin.ko
 
 BOARD_VENDOR_KERNEL_MODULES += $(shell ls $(KERNEL_MODULES_OUT)/*.ko)
 TARGET_USES_ION := true
