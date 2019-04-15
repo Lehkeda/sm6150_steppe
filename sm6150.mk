@@ -102,7 +102,6 @@ PRODUCT_PACKAGES += update_engine \
     update_engine_client \
     update_verifier \
     bootctrl.$(MSMSTEPPE) \
-    brillo_update_payload \
     android.hardware.boot@1.0-impl \
     android.hardware.boot@1.0-service
 
@@ -124,11 +123,6 @@ DEVICE_MATRIX_FILE := device/qcom/common/compatibility_matrix.xml
 DEVICE_FRAMEWORK_MANIFEST_FILE := device/qcom/$(MSMSTEPPE)/framework_manifest.xml
 DEVICE_FRAMEWORK_COMPATIBILITY_MATRIX_FILE += \
     vendor/qcom/opensource/core-utils/vendor_framework_compatibility_matrix.xml
-TARGET_USES_NQ_NFC := true
-ifeq ($(TARGET_USES_NQ_NFC),true)
-PRODUCT_COPY_FILES += \
-    vendor/nxp/opensource/commonsys/external/libnfc-nci/halimpl/libnfc-nci.conf:$(TARGET_COPY_OUT_VENDOR)/etc/libnfc-nci.conf
-endif
 
 #Healthd packages
 PRODUCT_PACKAGES += \
@@ -253,7 +247,9 @@ TARGET_MOUNT_POINTS_SYMLINKS := false
 
 ENABLE_VENDOR_RIL_SERVICE := true
 
-
+PRODUCT_PROPERTY_OVERRIDES += \
+			ro.crypto.volume.filenames_mode = "aes-256-cts" \
+			ro.crypto.allow_encrypt_override = true
 ###################################################################################
 # This is the End of target.mk file.
 # Now, Pickup other split product.mk files:
