@@ -119,6 +119,9 @@ PRODUCT_PACKAGES += \
 endif
 
 DEVICE_MANIFEST_FILE := device/qcom/$(MSMSTEPPE)/manifest.xml
+ifeq ($(ENABLE_AB), true)
+DEVICE_MANIFEST_FILE += device/qcom/$(MSMSTEPPE)/manifest_ab.xml
+endif
 DEVICE_MATRIX_FILE := device/qcom/common/compatibility_matrix.xml
 DEVICE_FRAMEWORK_MANIFEST_FILE := device/qcom/$(MSMSTEPPE)/framework_manifest.xml
 DEVICE_FRAMEWORK_COMPATIBILITY_MATRIX_FILE += \
