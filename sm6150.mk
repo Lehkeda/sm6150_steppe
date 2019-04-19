@@ -10,9 +10,16 @@ BOARD_AVB_SYSTEM_ROLLBACK_INDEX_LOCATION := 2
 
 #target name, shall be used in all makefiles
 MSMSTEPPE = sm6150
-
+TARGET_DEFINES_DALVIK_HEAP := true
 $(call inherit-product, device/qcom/qssi/common64.mk)
 
+#Inherit all except heap growth limit from phone-xhdpi-2048-dalvik-heap.mk
+PRODUCT_PROPERTY_OVERRIDES  += \
+        dalvik.vm.heapstartsize=8m \
+        dalvik.vm.heapsize=512m \
+        dalvik.vm.heaptargetutilization=0.75 \
+        dalvik.vm.heapminfree=512k \
+        dalvik.vm.heapmaxfree=8m
 PRODUCT_NAME := $(MSMSTEPPE)
 PRODUCT_DEVICE := $(MSMSTEPPE)
 PRODUCT_BRAND := Android
@@ -147,7 +154,7 @@ PRODUCT_PACKAGES += \
     libvolumelistener
 
 PRODUCT_PACKAGES += \
-    android.hardware.configstore@1.0-service \
+    android.hardware.configstore@1.1-service \
     android.hardware.broadcastradio@1.0-impl
 
 PRODUCT_HOST_PACKAGES += \
