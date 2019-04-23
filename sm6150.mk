@@ -45,7 +45,7 @@ PRODUCT_PROPERTY_OVERRIDES  += \
         dalvik.vm.heapmaxfree=8m
 PRODUCT_NAME := $(MSMSTEPPE)
 PRODUCT_DEVICE := $(MSMSTEPPE)
-PRODUCT_BRAND := Android
+PRODUCT_BRAND := qti
 PRODUCT_MODEL := $(MSMSTEPPE) for arm64
 
 #Initial bringup flags
@@ -72,7 +72,6 @@ PRODUCT_PACKAGES += libGLES_android
 -include $(QCPATH)/common/config/qtic-config.mk
 -include hardware/qcom/display/config/talos.mk
 
-$(warning ****** MSMSTEPPE code name is: $(MSMSTEPPE))
 
 PRODUCT_BOOT_JARS += tcmiface
 PRODUCT_BOOT_JARS += telephony-ext
