@@ -1,3 +1,26 @@
+# Default A/B configuration.
+ENABLE_AB ?= true
+
+# For QSSI builds, we skip building the system image. Instead we build the
+# "non-system" images (that we support).
+PRODUCT_BUILD_SYSTEM_IMAGE := false
+PRODUCT_BUILD_SYSTEM_OTHER_IMAGE := false
+PRODUCT_BUILD_VENDOR_IMAGE := true
+PRODUCT_BUILD_PRODUCT_IMAGE := false
+PRODUCT_BUILD_PRODUCT_SERVICES_IMAGE := false
+PRODUCT_BUILD_ODM_IMAGE := false
+ifeq ($(ENABLE_AB), true)
+PRODUCT_BUILD_CACHE_IMAGE := false
+else
+PRODUCT_BUILD_CACHE_IMAGE := true
+endif
+PRODUCT_BUILD_RAMDISK_IMAGE := true
+PRODUCT_BUILD_USERDATA_IMAGE := true
+
+# Also, since we're going to skip building the system image, we also skip
+# building the OTA package. We'll build this at a later step.
+TARGET_SKIP_OTA_PACKAGE := true
+
 # Enable AVB 2.0
 BOARD_AVB_ENABLE := true
 
@@ -29,9 +52,6 @@ PRODUCT_MODEL := $(MSMSTEPPE) for arm64
 TARGET_USES_AOSP := false
 TARGET_USES_AOSP_FOR_AUDIO := false
 TARGET_USES_QCOM_BSP := false
-
-# Default A/B configuration.
-ENABLE_AB ?= true
 
 # RRO configuration
 TARGET_USES_RRO := true
@@ -125,6 +145,9 @@ PRODUCT_PACKAGES += \
 endif
 
 DEVICE_MANIFEST_FILE := device/qcom/$(MSMSTEPPE)/manifest.xml
+ifeq ($(ENABLE_AB), true)
+DEVICE_MANIFEST_FILE += device/qcom/$(MSMSTEPPE)/manifest_ab.xml
+endif
 DEVICE_MATRIX_FILE := device/qcom/common/compatibility_matrix.xml
 DEVICE_FRAMEWORK_MANIFEST_FILE := device/qcom/$(MSMSTEPPE)/framework_manifest.xml
 DEVICE_FRAMEWORK_COMPATIBILITY_MATRIX_FILE += \
@@ -211,7 +234,15 @@ KERNEL_MODULES_OUT := out/target/product/$(PRODUCT_NAME)/$(KERNEL_MODULES_INSTAL
 
 #FEATURE_OPENGLES_EXTENSION_PACK support string config file
 PRODUCT_COPY_FILES += \
-    frameworks/native/data/etc/android.hardware.opengles.aep.xml:system/etc/permissions/android.hardware.opengles.aep.xml
+    frameworks/native/data/etc/android.hardware.opengles.aep.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.opengles.aep.xml
+
+# system prop for opengles version
+#
+# 196608 is decimal for 0x30000 to report version 3
+# 196609 is decimal for 0x30001 to report version 3.1
+# 196610 is decimal for 0x30002 to report version 3.2
+PRODUCT_PROPERTY_OVERRIDES  += \
+    ro.opengles.version=196610
 
 #system prop for Bluetooth SOC type
 PRODUCT_PROPERTY_OVERRIDES += \
