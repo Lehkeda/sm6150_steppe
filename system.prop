@@ -138,5 +138,3 @@ config.disable_rtt=true
 persist.radio.atfwd.start=false
 ro.kernel.qemu.gles=0
 qemu.hw.mainkeys=0
-
-vendor.display.disable_hw_recovery=1
