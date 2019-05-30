@@ -119,7 +119,12 @@ on boot
     setprop vendor.usb.rmnet.func.name "gsi"
     setprop vendor.usb.rmnet.inst.name "rmnet"
     setprop vendor.usb.dpl.inst.name "dpl"
+    setprop vendor.usb.qdss.inst.name "qdss"
     setprop sys.usb.configfs 1
+
+# access permissions for FPC service
+    chown system system /sys/bus/platform/devices/soc/soc:fpc1020/irq
+    chown system system /sys/bus/platform/devices/soc/soc:fpc1020/wakeup_enable
 
 #start camera server as daemon
 #service qcamerasvr /system/bin/mm-qcamera-daemon
@@ -424,11 +429,6 @@ service energy-awareness /system/vendor/bin/energy-awareness
     user system
     group system
     oneshot
-
-service smcinvoked /system/bin/smcinvoked
-    class main
-    user system
-    group system
 
 service vendor.tlocd /vendor/bin/tloc_daemon
     class late_start
