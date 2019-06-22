@@ -171,9 +171,6 @@ DEVICE_FRAMEWORK_COMPATIBILITY_MATRIX_FILE += \
 
 #Healthd packages
 PRODUCT_PACKAGES += \
-    android.hardware.health@1.0-impl \
-    android.hardware.health@1.0-convert \
-    android.hardware.health@1.0-service \
     libhealthd.msm
 
 # Adding vendor manifest
@@ -302,6 +299,9 @@ TARGET_MOUNT_POINTS_SYMLINKS := false
 PRODUCT_PROPERTY_OVERRIDES += \
 			ro.crypto.volume.filenames_mode = "aes-256-cts" \
 			ro.crypto.allow_encrypt_override = true
+
+$(call inherit-product, build/make/target/product/product_launched_with_p.mk)
+
 ###################################################################################
 # This is the End of target.mk file.
 # Now, Pickup other split product.mk files:
