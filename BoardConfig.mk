@@ -44,8 +44,16 @@ BOARD_USE_LEGACY_UI := true
 #Generate DTBO image
 BOARD_KERNEL_SEPARATED_DTBO := true
 
+TARGET_KERNEL_APPEND_DTB := true
+
 # Set Header version for bootimage
+ifneq ($(strip $(TARGET_KERNEL_APPEND_DTB)),true)
+#Enable DTB in bootimage and Set Header version
+BOARD_INCLUDE_DTB_IN_BOOTIMG := true
+BOARD_BOOTIMG_HEADER_VERSION := 2
+else
 BOARD_BOOTIMG_HEADER_VERSION := 1
+endif
 BOARD_MKBOOTIMG_ARGS := --header_version $(BOARD_BOOTIMG_HEADER_VERSION)
 
 ifeq ($(ENABLE_AB), true)
@@ -207,7 +215,6 @@ TARGET_NO_RPC := true
 TARGET_PLATFORM_DEVICE_BASE := /devices/soc.0/
 TARGET_INIT_VENDOR_LIB := libinit_msm
 
-TARGET_KERNEL_APPEND_DTB := true
 TARGET_COMPILE_WITH_MSM_KERNEL := true
 
 #Enable PD locater/notifier
