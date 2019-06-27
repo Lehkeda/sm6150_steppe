@@ -26,7 +26,15 @@ TARGET_SKIP_OTATOOLS_PACKAGE := true
 # Enable AVB 2.0
 BOARD_AVB_ENABLE := true
 
-BOARD_DYNAMIC_PARTITION_ENABLE ?= false
+# By default this target is ota config, so set the default shipping level to 28 (if not set explictly earlier)
+SHIPPING_API_LEVEL ?= 28
+
+# Enable Dynamic partitions only for Q new launch devices.
+ifeq ($(SHIPPING_API_LEVEL),29)
+  BOARD_DYNAMIC_PARTITION_ENABLE := true
+else ifeq ($(SHIPPING_API_LEVEL),28)
+  BOARD_DYNAMIC_PARTITION_ENABLE := false
+endif
 
 ifneq ($(strip $(BOARD_DYNAMIC_PARTITION_ENABLE)),true)
 # Enable chain partition for system, to facilitate system-only OTA in Treble.
