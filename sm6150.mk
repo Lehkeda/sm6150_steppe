@@ -36,6 +36,26 @@ else ifeq ($(SHIPPING_API_LEVEL),28)
   BOARD_DYNAMIC_PARTITION_ENABLE := false
 endif
 
+ifeq ($(SHIPPING_API_LEVEL),29)
+ # f2fs utilities
+ PRODUCT_PACKAGES += \
+     sg_write_buffer \
+     f2fs_io \
+     check_f2fs
+
+ # Userdata checkpoint
+ PRODUCT_PACKAGES += \
+     checkpoint_gc
+
+ ifeq ($(ENABLE_AB), true)
+  AB_OTA_POSTINSTALL_CONFIG += \
+      RUN_POSTINSTALL_vendor=true \
+      POSTINSTALL_PATH_vendor=bin/checkpoint_gc \
+      FILESYSTEM_TYPE_vendor=ext4 \
+      POSTINSTALL_OPTIONAL_vendor=true
+ endif
+endif
+
 ifneq ($(strip $(BOARD_DYNAMIC_PARTITION_ENABLE)),true)
 # Enable chain partition for system, to facilitate system-only OTA in Treble.
 BOARD_AVB_SYSTEM_KEY_PATH := external/avb/test/data/testkey_rsa2048.pem
