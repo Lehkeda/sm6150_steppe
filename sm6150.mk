@@ -36,6 +36,26 @@ else ifeq ($(SHIPPING_API_LEVEL),28)
   BOARD_DYNAMIC_PARTITION_ENABLE := false
 endif
 
+ifeq ($(SHIPPING_API_LEVEL),29)
+ # f2fs utilities
+ PRODUCT_PACKAGES += \
+     sg_write_buffer \
+     f2fs_io \
+     check_f2fs
+
+ # Userdata checkpoint
+ PRODUCT_PACKAGES += \
+     checkpoint_gc
+
+ ifeq ($(ENABLE_AB), true)
+  AB_OTA_POSTINSTALL_CONFIG += \
+      RUN_POSTINSTALL_vendor=true \
+      POSTINSTALL_PATH_vendor=bin/checkpoint_gc \
+      FILESYSTEM_TYPE_vendor=ext4 \
+      POSTINSTALL_OPTIONAL_vendor=true
+ endif
+endif
+
 ifneq ($(strip $(BOARD_DYNAMIC_PARTITION_ENABLE)),true)
 # Enable chain partition for system, to facilitate system-only OTA in Treble.
 BOARD_AVB_SYSTEM_KEY_PATH := external/avb/test/data/testkey_rsa2048.pem
@@ -45,6 +65,8 @@ BOARD_AVB_SYSTEM_ROLLBACK_INDEX_LOCATION := 2
 else
 PRODUCT_USE_DYNAMIC_PARTITIONS := true
 PRODUCT_PACKAGES += fastbootd
+# Add default implementation of fastboot HAL.
+PRODUCT_PACKAGES += android.hardware.fastboot@1.0-impl-mock
 ifeq ($(ENABLE_AB), true)
 PRODUCT_COPY_FILES += $(LOCAL_PATH)/fstab_AB_dynamic_partition.qti:$(TARGET_COPY_OUT_RAMDISK)/fstab.qcom
 else
