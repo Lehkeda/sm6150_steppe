@@ -18,13 +18,43 @@ PRODUCT_BUILD_RAMDISK_IMAGE := true
 PRODUCT_BUILD_USERDATA_IMAGE := true
 
 # Also, since we're going to skip building the system image, we also skip
-# building the OTA package. We'll build this at a later step.
+# building the OTA package. We'll build this at a later step. We also don't
+# need to build the OTA tools package (we'll use the one from the system build).
 TARGET_SKIP_OTA_PACKAGE := true
+TARGET_SKIP_OTATOOLS_PACKAGE := true
 
 # Enable AVB 2.0
 BOARD_AVB_ENABLE := true
 
-BOARD_DYNAMIC_PARTITION_ENABLE ?= false
+# By default this target is ota config, so set the default shipping level to 28 (if not set explictly earlier)
+SHIPPING_API_LEVEL ?= 28
+
+# Enable Dynamic partitions only for Q new launch devices.
+ifeq ($(SHIPPING_API_LEVEL),29)
+  BOARD_DYNAMIC_PARTITION_ENABLE := true
+else ifeq ($(SHIPPING_API_LEVEL),28)
+  BOARD_DYNAMIC_PARTITION_ENABLE := false
+endif
+
+ifeq ($(SHIPPING_API_LEVEL),29)
+ # f2fs utilities
+ PRODUCT_PACKAGES += \
+     sg_write_buffer \
+     f2fs_io \
+     check_f2fs
+
+ # Userdata checkpoint
+ PRODUCT_PACKAGES += \
+     checkpoint_gc
+
+ ifeq ($(ENABLE_AB), true)
+  AB_OTA_POSTINSTALL_CONFIG += \
+      RUN_POSTINSTALL_vendor=true \
+      POSTINSTALL_PATH_vendor=bin/checkpoint_gc \
+      FILESYSTEM_TYPE_vendor=ext4 \
+      POSTINSTALL_OPTIONAL_vendor=true
+ endif
+endif
 
 ifneq ($(strip $(BOARD_DYNAMIC_PARTITION_ENABLE)),true)
 # Enable chain partition for system, to facilitate system-only OTA in Treble.
@@ -35,6 +65,8 @@ BOARD_AVB_SYSTEM_ROLLBACK_INDEX_LOCATION := 2
 else
 PRODUCT_USE_DYNAMIC_PARTITIONS := true
 PRODUCT_PACKAGES += fastbootd
+# Add default implementation of fastboot HAL.
+PRODUCT_PACKAGES += android.hardware.fastboot@1.0-impl-mock
 ifeq ($(ENABLE_AB), true)
 PRODUCT_COPY_FILES += $(LOCAL_PATH)/fstab_AB_dynamic_partition.qti:$(TARGET_COPY_OUT_RAMDISK)/fstab.qcom
 else
@@ -169,9 +201,6 @@ DEVICE_FRAMEWORK_COMPATIBILITY_MATRIX_FILE += \
 
 #Healthd packages
 PRODUCT_PACKAGES += \
-    android.hardware.health@1.0-impl \
-    android.hardware.health@1.0-convert \
-    android.hardware.health@1.0-service \
     libhealthd.msm
 
 # Adding vendor manifest
@@ -193,10 +222,6 @@ PRODUCT_HOST_PACKAGES += \
     brillo_update_payload \
     configstore_xmlparser
 
-# FBE support
-PRODUCT_COPY_FILES += \
-    device/qcom/$(MSMSTEPPE)/init.qti.qseecomd.sh:$(TARGET_COPY_OUT_VENDOR)/bin/init.qti.qseecomd.sh
-
 # MSM IRQ Balancer configuration file
 PRODUCT_COPY_FILES += device/qcom/$(MSMSTEPPE)/msm_irqbalance.conf:$(TARGET_COPY_OUT_VENDOR)/etc/msm_irqbalance.conf
 
@@ -217,7 +242,7 @@ PRODUCT_PACKAGES += \
 
 # MIDI feature
 PRODUCT_COPY_FILES += \
-    frameworks/native/data/etc/android.software.midi.xml:system/etc/permissions/android.software.midi.xml
+    frameworks/native/data/etc/android.software.midi.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.software.midi.xml
 
 PRODUCT_RESTRICT_VENDOR_FILES := false
 
@@ -271,12 +296,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_FULL_TREBLE_OVERRIDE := true
 PRODUCT_VENDOR_MOVE_ENABLED := true
 
-#Enable QTI KEYMASTER and GATEKEEPER HIDLs
-KMGK_USE_QTI_SERVICE := true
-
-#Enable KEYMASTER 4.0
-ENABLE_KM_4_0 := true
-
 # Enable flag to support slow devices
 TARGET_PRESIL_SLOW_BOARD := true
 
@@ -300,6 +319,9 @@ TARGET_MOUNT_POINTS_SYMLINKS := false
 PRODUCT_PROPERTY_OVERRIDES += \
 			ro.crypto.volume.filenames_mode = "aes-256-cts" \
 			ro.crypto.allow_encrypt_override = true
+
+$(call inherit-product, build/make/target/product/product_launched_with_p.mk)
+
 ###################################################################################
 # This is the End of target.mk file.
 # Now, Pickup other split product.mk files:

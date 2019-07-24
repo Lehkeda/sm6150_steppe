@@ -46,8 +46,6 @@ on init
     write /sys/module/qpnp_rtc/parameters/poweron_alarm 1
     wait /dev/block/platform/soc/${ro.boot.bootdevice}
     symlink /dev/block/platform/soc/${ro.boot.bootdevice} /dev/block/bootdevice
-    start vendor.qseecomd
-    start keymaster-4-0
 
 on early-fs
     start vold
@@ -105,7 +103,7 @@ on boot
 # Add a cpuset for the camera daemon
 # We want all cores for camera
     mkdir /dev/cpuset/camera-daemon
-    write /dev/cpuset/camera-daemon/cpus 0-3
+    write /dev/cpuset/camera-daemon/cpus 0-7
     write /dev/cpuset/camera-daemon/mems 0
     chown cameraserver cameraserver /dev/cpuset/camera-daemon
     chown cameraserver cameraserver /dev/cpuset/camera-daemon/tasks
@@ -171,11 +169,6 @@ on charger
 #on property:persist.usb.chgdisabled=0
 #    write /sys/class/power_supply/battery/charging_enabled 1
 
-service vendor.qseecomd /vendor/bin/qseecomd
-    class core
-    user root
-    group root
-
 service spdaemon /vendor/bin/spdaemon
     class core
     user system
@@ -207,26 +200,6 @@ service thermal-engine /system/vendor/bin/thermal-engine
 #   class late_start
 #   user root
 #   group root
-
-service adsprpcd_root /vendor/bin/adsprpcd
-   class main
-   user media
-   group media
-
-service adsprpcd /vendor/bin/adsprpcd audiopd
-   class main
-   user media
-   group media
-
-service adsprpcd_sensorspd /vendor/bin/adsprpcd sensorspd
-   class main
-   user system
-   group system
-
-service cdsprpcd /vendor/bin/cdsprpcd
-   class main
-   user system
-   group system
 
 #service audiod /vendor/bin/audiod
 #   class late_start
