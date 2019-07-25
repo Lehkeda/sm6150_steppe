@@ -80,9 +80,6 @@ BOARD_AVB_VBMETA_SYSTEM_ROLLBACK_INDEX_LOCATION := 2
 $(call inherit-product, build/make/target/product/gsi_keys.mk)
 endif
 
-# privapp-permissions whitelisting (To Fix CTS :privappPermissionsMustBeEnforced)
-PRODUCT_PROPERTY_OVERRIDES += ro.control_privapp_permissions=enforce
-
 #target name, shall be used in all makefiles
 MSMSTEPPE = sm6150
 TARGET_DEFINES_DALVIK_HEAP := true
