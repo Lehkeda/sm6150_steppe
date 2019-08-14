@@ -136,7 +136,7 @@ IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     <hal format="hidl">
         <name>vendor.display.config</name>
         <transport>hwbinder</transport>
-        <version>1.9</version>
+        <version>1.10</version>
         <interface>
             <name>IDisplayConfig</name>
             <instance>default</instance>
@@ -483,6 +483,16 @@ IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
        <interface>
          <name>IUceService</name>
          <instance>com.qualcomm.qti.uceservice</instance>
+       </interface>
+   </hal>
+   <!-- IMS callinfo Service -->
+   <hal format="hidl">
+       <name>vendor.qti.ims.callinfo</name>
+       <transport>hwbinder</transport>
+       <version>1.0</version>
+       <interface>
+         <name>IService</name>
+         <instance>default</instance>
        </interface>
    </hal>
    <!-- IMS CM Service -->
@@ -845,6 +855,24 @@ IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
         <interface>
             <name>ICvp</name>
             <instance>cvphalservice</instance>
+        </interface>
+    </hal>
+    <!-- MLS HAL Service -->
+    <hal format="hidl">
+        <name>vendor.qti.hardware.mlshal</name>
+        <transport>hwbinder</transport>
+        <version>1.0</version>
+        <interface>
+            <name>IMlsDap</name>
+            <instance>mlsdaphal</instance>
+        </interface>
+        <interface>
+            <name>IMlsVnc</name>
+            <instance>mlsvnchal</instance>
+        </interface>
+        <interface>
+            <name>IMlsIon</name>
+            <instance>mlsionhal</instance>
         </interface>
     </hal>
     <!-- Thermal HAL Service -->
