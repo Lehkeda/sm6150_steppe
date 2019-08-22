@@ -123,9 +123,9 @@ endif
 #----------------------------------------------------------------------
 # extra images
 #----------------------------------------------------------------------
-#ifeq (, $(wildcard vendor/qcom/build/tasks/generate_extra_images.mk))
+ifeq (, $(wildcard vendor/qcom/build/tasks/generate_extra_images.mk))
 include device/qcom/common/generate_extra_images.mk
-#endif
+endif
 
 #----------------------------------------------------------------------
 # wlan specific
