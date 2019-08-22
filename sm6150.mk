@@ -32,8 +32,10 @@ SHIPPING_API_LEVEL ?= 28
 # Enable Dynamic partitions only for Q new launch devices.
 ifeq ($(SHIPPING_API_LEVEL),29)
   BOARD_DYNAMIC_PARTITION_ENABLE := true
+  PRODUCT_SHIPPING_API_LEVEL := 29
 else ifeq ($(SHIPPING_API_LEVEL),28)
   BOARD_DYNAMIC_PARTITION_ENABLE := false
+  $(call inherit-product, build/make/target/product/product_launched_with_p.mk)
 endif
 
 ifeq ($(SHIPPING_API_LEVEL),29)
@@ -79,6 +81,9 @@ BOARD_AVB_VBMETA_SYSTEM_ROLLBACK_INDEX := 0
 BOARD_AVB_VBMETA_SYSTEM_ROLLBACK_INDEX_LOCATION := 2
 $(call inherit-product, build/make/target/product/gsi_keys.mk)
 endif
+
+# privapp-permissions whitelisting (To Fix CTS :privappPermissionsMustBeEnforced)
+PRODUCT_PROPERTY_OVERRIDES += ro.control_privapp_permissions=enforce
 
 #target name, shall be used in all makefiles
 MSMSTEPPE = sm6150
@@ -222,10 +227,6 @@ PRODUCT_HOST_PACKAGES += \
     brillo_update_payload \
     configstore_xmlparser
 
-# FBE support
-PRODUCT_COPY_FILES += \
-    device/qcom/$(MSMSTEPPE)/init.qti.qseecomd.sh:$(TARGET_COPY_OUT_VENDOR)/bin/init.qti.qseecomd.sh
-
 # MSM IRQ Balancer configuration file
 PRODUCT_COPY_FILES += device/qcom/$(MSMSTEPPE)/msm_irqbalance.conf:$(TARGET_COPY_OUT_VENDOR)/etc/msm_irqbalance.conf
 
@@ -300,12 +301,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_FULL_TREBLE_OVERRIDE := true
 PRODUCT_VENDOR_MOVE_ENABLED := true
 
-#Enable QTI KEYMASTER and GATEKEEPER HIDLs
-KMGK_USE_QTI_SERVICE := true
-
-#Enable KEYMASTER 4.0
-ENABLE_KM_4_0 := true
-
 # Enable flag to support slow devices
 TARGET_PRESIL_SLOW_BOARD := true
 
@@ -329,8 +324,6 @@ TARGET_MOUNT_POINTS_SYMLINKS := false
 PRODUCT_PROPERTY_OVERRIDES += \
 			ro.crypto.volume.filenames_mode = "aes-256-cts" \
 			ro.crypto.allow_encrypt_override = true
-
-$(call inherit-product, build/make/target/product/product_launched_with_p.mk)
 
 ###################################################################################
 # This is the End of target.mk file.

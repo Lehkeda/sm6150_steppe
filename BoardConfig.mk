@@ -2,8 +2,6 @@
 #
 # Product-specific compile-time definitions.
 #
-BUILD_BROKEN_ANDROIDMK_EXPORTS=true
-BUILD_BROKEN_DUP_COPY_HEADERS=true
 # TODO(b/124534788): Temporarily allow eng and debug LOCAL_MODULE_TAGS
 BUILD_BROKEN_ENG_DEBUG_TAGS:=true
 
@@ -131,6 +129,12 @@ endif
 #These need to be explicitly
 ifneq ($(AB_OTA_UPDATER),true)
     TARGET_RECOVERY_UPDATER_LIBS += librecovery_updater_msm
+endif
+
+ifeq ($(SHIPPING_API_LEVEL),29)
+  BOARD_SYSTEMSDK_VERSIONS:=29
+else
+  BOARD_SYSTEMSDK_VERSIONS:=28
 endif
 
 #Enable split vendor image
@@ -265,9 +269,6 @@ ifeq ($(strip $(BOARD_HAS_QCOM_WLAN)),true)
 include device/qcom/wlan/talos/BoardConfigWlan.mk
 endif
 
-#Flag to enable System SDK Requirements.
-#All vendor APK will be compiled against system_current API set.
-BOARD_SYSTEMSDK_VERSIONS:=28
 BOARD_VNDK_VERSION:= current
 BUILD_BROKEN_DUP_RULES := true
 BUILD_BROKEN_PHONY_TARGETS := true
