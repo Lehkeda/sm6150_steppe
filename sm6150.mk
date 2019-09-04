@@ -32,8 +32,10 @@ SHIPPING_API_LEVEL ?= 28
 # Enable Dynamic partitions only for Q new launch devices.
 ifeq ($(SHIPPING_API_LEVEL),29)
   BOARD_DYNAMIC_PARTITION_ENABLE := true
+  PRODUCT_SHIPPING_API_LEVEL := 29
 else ifeq ($(SHIPPING_API_LEVEL),28)
   BOARD_DYNAMIC_PARTITION_ENABLE := false
+  $(call inherit-product, build/make/target/product/product_launched_with_p.mk)
 endif
 
 ifeq ($(SHIPPING_API_LEVEL),29)
@@ -322,8 +324,6 @@ TARGET_MOUNT_POINTS_SYMLINKS := false
 PRODUCT_PROPERTY_OVERRIDES += \
 			ro.crypto.volume.filenames_mode = "aes-256-cts" \
 			ro.crypto.allow_encrypt_override = true
-
-$(call inherit-product, build/make/target/product/product_launched_with_p.mk)
 
 ###################################################################################
 # This is the End of target.mk file.
