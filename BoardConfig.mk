@@ -28,11 +28,6 @@ BOARD_PRESIL_BUILD := true
 -include vendor/qcom/prebuilt/$(MSMSTEPPE)/BoardConfigVendor.mk
 -include $(QCPATH)/common/$(MSMSTEPPE)/BoardConfigVendor.mk
 
-# Some framework code requires this to enable BT
-BOARD_HAVE_BLUETOOTH := false
-BOARD_USES_WIPOWER := true
-BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := device/qcom/common
-
 USE_OPENGL_RENDERER := true
 BOARD_USE_LEGACY_UI := true
 
