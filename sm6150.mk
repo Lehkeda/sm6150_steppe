@@ -212,12 +212,8 @@ PRODUCT_PACKAGES += \
 PRODUCT_COPY_FILES += \
     device/qcom/$(MSMSTEPPE)/manifest.xml:$(TARGET_COPY_OUT_VENDOR)/manifest.xml
 
-#ANT+ stack
-PRODUCT_PACKAGES += \
-    AntHalService \
-    libantradio \
-    antradio_app \
-    libvolumelistener
+#audio related module
+PRODUCT_PACKAGES += libvolumelistener
 
 PRODUCT_PACKAGES += \
     android.hardware.configstore@1.1-service \
@@ -284,10 +280,6 @@ PRODUCT_COPY_FILES += \
 # 196610 is decimal for 0x30002 to report version 3.2
 PRODUCT_PROPERTY_OVERRIDES  += \
     ro.opengles.version=196610
-
-#system prop for Bluetooth SOC type
-PRODUCT_PROPERTY_OVERRIDES += \
-    vendor.qcom.bluetooth.soc=cherokee
 
 #vendor prop to enable advanced network scanning
 PRODUCT_PROPERTY_OVERRIDES += \
