@@ -3,7 +3,11 @@ ENABLE_AB ?= true
 
 # For QSSI builds, we skip building the system image. Instead we build the
 # "non-system" images (that we support).
+ifeq ($(TARGET_FWK_SUPPORTS_FULL_VALUEADDS),true)
 PRODUCT_BUILD_SYSTEM_IMAGE := false
+else
+PRODUCT_BUILD_SYSTEM_IMAGE := true
+endif
 PRODUCT_BUILD_SYSTEM_OTHER_IMAGE := false
 PRODUCT_BUILD_VENDOR_IMAGE := true
 PRODUCT_BUILD_PRODUCT_IMAGE := false
@@ -77,7 +81,7 @@ endif
 BOARD_AVB_VBMETA_SYSTEM := system
 BOARD_AVB_VBMETA_SYSTEM_KEY_PATH := external/avb/test/data/testkey_rsa2048.pem
 BOARD_AVB_VBMETA_SYSTEM_ALGORITHM := SHA256_RSA2048
-BOARD_AVB_VBMETA_SYSTEM_ROLLBACK_INDEX := 0
+BOARD_AVB_VBMETA_SYSTEM_ROLLBACK_INDEX := $(PLATFORM_SECURITY_PATCH_TIMESTAMP)
 BOARD_AVB_VBMETA_SYSTEM_ROLLBACK_INDEX_LOCATION := 2
 $(call inherit-product, build/make/target/product/gsi_keys.mk)
 endif
