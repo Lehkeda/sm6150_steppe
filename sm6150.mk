@@ -77,7 +77,7 @@ endif
 BOARD_AVB_VBMETA_SYSTEM := system
 BOARD_AVB_VBMETA_SYSTEM_KEY_PATH := external/avb/test/data/testkey_rsa2048.pem
 BOARD_AVB_VBMETA_SYSTEM_ALGORITHM := SHA256_RSA2048
-BOARD_AVB_VBMETA_SYSTEM_ROLLBACK_INDEX := 0
+BOARD_AVB_VBMETA_SYSTEM_ROLLBACK_INDEX := $(PLATFORM_SECURITY_PATCH_TIMESTAMP)
 BOARD_AVB_VBMETA_SYSTEM_ROLLBACK_INDEX_LOCATION := 2
 $(call inherit-product, build/make/target/product/gsi_keys.mk)
 endif
@@ -212,12 +212,8 @@ PRODUCT_PACKAGES += \
 PRODUCT_COPY_FILES += \
     device/qcom/$(MSMSTEPPE)/manifest.xml:$(TARGET_COPY_OUT_VENDOR)/manifest.xml
 
-#ANT+ stack
-PRODUCT_PACKAGES += \
-    AntHalService \
-    libantradio \
-    antradio_app \
-    libvolumelistener
+#audio related module
+PRODUCT_PACKAGES += libvolumelistener
 
 PRODUCT_PACKAGES += \
     android.hardware.configstore@1.1-service \
@@ -285,10 +281,6 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PROPERTY_OVERRIDES  += \
     ro.opengles.version=196610
 
-#system prop for Bluetooth SOC type
-PRODUCT_PROPERTY_OVERRIDES += \
-    vendor.qcom.bluetooth.soc=cherokee
-
 #vendor prop to enable advanced network scanning
 PRODUCT_PROPERTY_OVERRIDES += \
     persist.vendor.radio.enableadvancedscan=true
@@ -324,6 +316,10 @@ TARGET_MOUNT_POINTS_SYMLINKS := false
 PRODUCT_PROPERTY_OVERRIDES += \
 			ro.crypto.volume.filenames_mode = "aes-256-cts" \
 			ro.crypto.allow_encrypt_override = true
+
+PRODUCT_COPY_FILES += \
+    device/qcom/$(MSMSTEPPE)/manifest_sdmmagpie.xml:$(TARGET_COPY_OUT_VENDOR)/odm/etc/vintf/manifest_365.xml \
+    device/qcom/$(MSMSTEPPE)/manifest_sdmmagpie.xml:$(TARGET_COPY_OUT_VENDOR)/odm/etc/vintf/manifest_366.xml
 
 ###################################################################################
 # This is the End of target.mk file.

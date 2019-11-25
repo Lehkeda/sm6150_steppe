@@ -2,9 +2,6 @@
 #
 # Product-specific compile-time definitions.
 #
-# TODO(b/124534788): Temporarily allow eng and debug LOCAL_MODULE_TAGS
-BUILD_BROKEN_ENG_DEBUG_TAGS:=true
-
 TARGET_BOARD_PLATFORM := $(MSMSTEPPE)
 TARGET_SEPOLICY_DIR := msmsteppe
 TARGET_BOOTLOADER_BOARD_NAME := $(MSMSTEPPE)
@@ -30,11 +27,6 @@ TARGET_NO_KERNEL := false
 BOARD_PRESIL_BUILD := true
 -include vendor/qcom/prebuilt/$(MSMSTEPPE)/BoardConfigVendor.mk
 -include $(QCPATH)/common/$(MSMSTEPPE)/BoardConfigVendor.mk
-
-# Some framework code requires this to enable BT
-BOARD_HAVE_BLUETOOTH := false
-BOARD_USES_WIPOWER := true
-BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := device/qcom/common
 
 USE_OPENGL_RENDERER := true
 BOARD_USE_LEGACY_UI := true
