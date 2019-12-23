@@ -304,10 +304,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_FULL_TREBLE_OVERRIDE := true
 PRODUCT_VENDOR_MOVE_ENABLED := true
 
-# Enable flag to support slow devices
-TARGET_PRESIL_SLOW_BOARD := true
-
-
 #----------------------------------------------------------------------
 # wlan specific
 #----------------------------------------------------------------------
