@@ -111,6 +111,13 @@ TARGET_USES_AOSP := false
 TARGET_USES_AOSP_FOR_AUDIO := false
 TARGET_USES_QCOM_BSP := false
 
+ifeq ($(TARGET_FWK_SUPPORTS_FULL_VALUEADDS),true)
+  $(warning "Compiling with full value-added framework")
+else
+  $(warning "Compiling without full value-added framework - enabling GENERIC_ODM_IMAGE")
+  GENERIC_ODM_IMAGE := true
+endif
+
 # RRO configuration
 TARGET_USES_RRO := true
 
@@ -297,10 +304,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_FULL_TREBLE_OVERRIDE := true
 PRODUCT_VENDOR_MOVE_ENABLED := true
 
-# Enable flag to support slow devices
-TARGET_PRESIL_SLOW_BOARD := true
-
-
 #----------------------------------------------------------------------
 # wlan specific
 #----------------------------------------------------------------------
@@ -324,6 +327,12 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_COPY_FILES += \
     device/qcom/$(MSMSTEPPE)/manifest_sdmmagpie.xml:$(TARGET_COPY_OUT_VENDOR)/odm/etc/vintf/manifest_365.xml \
     device/qcom/$(MSMSTEPPE)/manifest_sdmmagpie.xml:$(TARGET_COPY_OUT_VENDOR)/odm/etc/vintf/manifest_366.xml
+
+ifneq ($(GENERIC_ODM_IMAGE),true)
+	PRODUCT_COPY_FILES += device/qcom/$(MSMSTEPPE)/manifest-qva.xml:$(TARGET_COPY_OUT_ODM)/etc/vintf/manifest.xml
+else
+	PRODUCT_COPY_FILES += device/qcom/$(MSMSTEPPE)/manifest-generic.xml:$(TARGET_COPY_OUT_ODM)/etc/vintf/manifest.xml
+endif
 
 ###################################################################################
 # This is the End of target.mk file.
