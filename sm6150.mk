@@ -202,10 +202,6 @@ DEVICE_FRAMEWORK_COMPATIBILITY_MATRIX_FILE += \
 PRODUCT_PACKAGES += \
     libhealthd.msm
 
-# Adding vendor manifest
-PRODUCT_COPY_FILES += \
-    device/qcom/$(MSMSTEPPE)/manifest.xml:$(TARGET_COPY_OUT_VENDOR)/manifest.xml
-
 #audio related module
 PRODUCT_PACKAGES += libvolumelistener
 
@@ -311,9 +307,8 @@ PRODUCT_PROPERTY_OVERRIDES += \
 			ro.crypto.volume.filenames_mode = "aes-256-cts" \
 			ro.crypto.allow_encrypt_override = true
 
-PRODUCT_COPY_FILES += \
-    device/qcom/$(MSMSTEPPE)/manifest_sdmmagpie.xml:$(TARGET_COPY_OUT_VENDOR)/odm/etc/vintf/manifest_365.xml \
-    device/qcom/$(MSMSTEPPE)/manifest_sdmmagpie.xml:$(TARGET_COPY_OUT_VENDOR)/odm/etc/vintf/manifest_366.xml
+ODM_MANIFEST_FILES += device/qcom/$(MSMSTEPPE)/manifest_365.xml
+ODM_MANIFEST_FILES += device/qcom/$(MSMSTEPPE)/manifest_366.xml
 
 ###################################################################################
 # This is the End of target.mk file.
