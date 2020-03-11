@@ -262,6 +262,7 @@ endif
 BOARD_VNDK_VERSION:= current
 BUILD_BROKEN_DUP_RULES := true
 include device/qcom/sepolicy/SEPolicy.mk
+BUILD_BROKEN_PREBUILT_ELF_FILES := true
 
 #################################################################################
 # This is the End of BoardConfig.mk file.
