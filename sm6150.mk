@@ -27,7 +27,7 @@ TARGET_SKIP_OTATOOLS_PACKAGE := true
 BOARD_AVB_ENABLE := true
 
 # By default this target is ota config, so set the default shipping level to 28 (if not set explictly earlier)
-SHIPPING_API_LEVEL ?= 28
+SHIPPING_API_LEVEL ?= 29
 
 # Enable Dynamic partitions only for Q new launch devices.
 ifeq ($(SHIPPING_API_LEVEL),29)
