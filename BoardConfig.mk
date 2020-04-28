@@ -182,6 +182,13 @@ BOARD_VENDOR_KERNEL_MODULES := \
     $(KERNEL_MODULES_OUT)/mpq-adapter.ko \
     $(KERNEL_MODULES_OUT)/mpq-dmx-hw-plugin.ko
 
+# install lkdtm only for userdebug and eng build variants
+ifneq (,$(filter userdebug eng, $(TARGET_BUILD_VARIANT)))
+    ifeq (,$(findstring perf_defconfig, $(KERNEL_DEFCONFIG)))
+        BOARD_VENDOR_KERNEL_MODULES += $(KERNEL_MODULES_OUT)/lkdtm.ko
+    endif
+endif
+
 BOARD_VENDOR_KERNEL_MODULES += $(shell ls $(KERNEL_MODULES_OUT)/*.ko)
 TARGET_USES_ION := true
 TARGET_USES_NEW_ION_API :=true
