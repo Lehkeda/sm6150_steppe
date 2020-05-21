@@ -36,6 +36,8 @@ BOARD_KERNEL_SEPARATED_DTBO := true
 
 TARGET_KERNEL_APPEND_DTB := true
 
+SYSTEMEXT_SEPARATE_PARTITION_ENABLE = true
+
 # Set Header version for bootimage
 ifneq ($(strip $(TARGET_KERNEL_APPEND_DTB)),true)
 #Enable DTB in bootimage and Set Header version
