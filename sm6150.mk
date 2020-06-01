@@ -27,7 +27,7 @@ TARGET_SKIP_OTATOOLS_PACKAGE := true
 BOARD_AVB_ENABLE := true
 
 # By default this target is ota config, so set the default shipping level to 28 (if not set explictly earlier)
-SHIPPING_API_LEVEL ?= 28
+SHIPPING_API_LEVEL ?= 29
 
 # Enable Dynamic partitions only for Q new launch devices.
 ifeq ($(SHIPPING_API_LEVEL),29)
@@ -285,6 +285,8 @@ endif
 
 # Enable vndk-sp Librarie
 PRODUCT_PACKAGES += vndk_package
+
+PRODUCT_PACKAGES += init.qti.dcvs.sh
 
 PRODUCT_COMPATIBLE_PROPERTY_OVERRIDE:=true
 TARGET_MOUNT_POINTS_SYMLINKS := false
