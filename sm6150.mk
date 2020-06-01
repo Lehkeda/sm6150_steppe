@@ -1,6 +1,8 @@
 # Default A/B configuration.
 ENABLE_AB ?= true
 
+SYSTEMEXT_SEPARATE_PARTITION_ENABLE = true
+
 # For QSSI builds, we skip building the system image. Instead we build the
 # "non-system" images (that we support).
 PRODUCT_BUILD_SYSTEM_IMAGE := false
