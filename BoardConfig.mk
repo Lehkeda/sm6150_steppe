@@ -251,9 +251,6 @@ USE_SENSOR_MULTI_HAL := true
 #Add non-hlos files to ota packages
 ADD_RADIO_FILES := true
 
-#Enable LM
-TARGET_USES_LM := true
-
 # Enable QG user space
 PMIC_QG_SUPPORT := true
 
