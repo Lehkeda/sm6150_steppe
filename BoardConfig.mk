@@ -36,6 +36,8 @@ BOARD_KERNEL_SEPARATED_DTBO := true
 
 TARGET_KERNEL_APPEND_DTB := true
 
+SYSTEMEXT_SEPARATE_PARTITION_ENABLE = true
+
 # Set Header version for bootimage
 ifneq ($(strip $(TARGET_KERNEL_APPEND_DTB)),true)
 #Enable DTB in bootimage and Set Header version
@@ -101,7 +103,11 @@ BOARD_BUILD_SYSTEM_ROOT_IMAGE := true
 else
 # Define the Dynamic Partition sizes and groups.
     ifeq ($(ENABLE_AB), true)
-        BOARD_SUPER_PARTITION_SIZE := 12884901888
+        ifeq ($(ENABLE_VIRTUAL_AB), true)
+            BOARD_SUPER_PARTITION_SIZE := 6442450944
+        else
+            BOARD_SUPER_PARTITION_SIZE := 12884901888
+        endif
     else
         BOARD_SUPER_PARTITION_SIZE := 6442450944
     endif
@@ -189,6 +195,7 @@ ifneq (,$(filter userdebug eng, $(TARGET_BUILD_VARIANT)))
     endif
 endif
 
+BOARD_DO_NOT_STRIP_VENDOR_MODULES := true
 BOARD_VENDOR_KERNEL_MODULES += $(shell ls $(KERNEL_MODULES_OUT)/*.ko)
 TARGET_USES_ION := true
 TARGET_USES_NEW_ION_API :=true
@@ -249,9 +256,6 @@ USE_SENSOR_MULTI_HAL := true
 #Add non-hlos files to ota packages
 ADD_RADIO_FILES := true
 
-#Enable LM
-TARGET_USES_LM := true
-
 # Enable QG user space
 PMIC_QG_SUPPORT := true
 
@@ -272,7 +276,7 @@ BUILD_BROKEN_DUP_RULES := true
 BUILD_BROKEN_NINJA_USES_ENV_VARS := SDCLANG_AE_CONFIG SDCLANG_CONFIG SDCLANG_SA_ENABLED SDCLANG_CONFIG_AOSP
 BUILD_BROKEN_NINJA_USES_ENV_VARS += TEMPORARY_DISABLE_PATH_RESTRICTIONS
 BUILD_BROKEN_NINJA_USES_ENV_VARS += RTIC_MPGEN
-include device/qcom/sepolicy/SEPolicy.mk
+include device/qcom/sepolicy_vndr/SEPolicy.mk
 BUILD_BROKEN_PREBUILT_ELF_FILES := true
 BUILD_BROKEN_USES_BUILD_HOST_SHARED_LIBRARY := true
 BUILD_BROKEN_USES_BUILD_HOST_STATIC_LIBRARY := true
