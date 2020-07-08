@@ -210,7 +210,6 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += libvolumelistener
 
 PRODUCT_PACKAGES += \
-    android.hardware.configstore@1.1-service \
     android.hardware.broadcastradio@1.0-impl
 
 PRODUCT_HOST_PACKAGES += \
@@ -296,6 +295,9 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 ODM_MANIFEST_FILES += device/qcom/$(MSMSTEPPE)/manifest_365.xml
 ODM_MANIFEST_FILES += device/qcom/$(MSMSTEPPE)/manifest_366.xml
+
+#Enable Light AIDL HAL
+PRODUCT_PACKAGES += android.hardware.lights-service.qti
 
 ###################################################################################
 # This is the End of target.mk file.
