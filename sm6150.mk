@@ -1,8 +1,6 @@
 # Default A/B configuration.
 ENABLE_AB ?= true
 
-SYSTEMEXT_SEPARATE_PARTITION_ENABLE = true
-
 # For QSSI builds, we skip building the system image. Instead we build the
 # "non-system" images (that we support).
 PRODUCT_BUILD_SYSTEM_IMAGE := false
@@ -231,11 +229,6 @@ PRODUCT_PACKAGES += camera.device@1.0-impl
 PRODUCT_PACKAGES += android.hardware.camera.provider@2.4-impl
 # Enable binderized camera HAL
 PRODUCT_PACKAGES += android.hardware.camera.provider@2.4-service_64
-
-# Vibrator
-PRODUCT_PACKAGES += \
-    android.hardware.vibrator@1.0-impl \
-    android.hardware.vibrator@1.0-service \
 
 # MIDI feature
 PRODUCT_COPY_FILES += \
