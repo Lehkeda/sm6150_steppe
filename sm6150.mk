@@ -114,6 +114,13 @@ TARGET_USES_AOSP := false
 TARGET_USES_AOSP_FOR_AUDIO := false
 TARGET_USES_QCOM_BSP := false
 
+ifeq ($(TARGET_FWK_SUPPORTS_FULL_VALUEADDS),true)
+  $(warning "Compiling with full value-added framework")
+else
+  $(warning "Compiling without full value-added framework - enabling GENERIC_ODM_IMAGE")
+  GENERIC_ODM_IMAGE := true
+endif
+
 # RRO configuration
 TARGET_USES_RRO := true
 
@@ -298,6 +305,12 @@ ODM_MANIFEST_FILES += device/qcom/$(MSMSTEPPE)/manifest_366.xml
 
 #Enable Light AIDL HAL
 PRODUCT_PACKAGES += android.hardware.lights-service.qti
+
+ifneq ($(GENERIC_ODM_IMAGE),true)
+   ODM_MANIFEST_FILES += device/qcom/$(MSMSTEPPE)/manifest-qva.xml
+else
+   ODM_MANIFEST_FILES += device/qcom/$(MSMSTEPPE)/manifest-generic.xml
+endif
 
 ###################################################################################
 # This is the End of target.mk file.
