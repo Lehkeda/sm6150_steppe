@@ -41,7 +41,7 @@ else ifeq ($(SHIPPING_API_LEVEL),28)
   $(call inherit-product, build/make/target/product/product_launched_with_p.mk)
 endif
 
-ifeq ($(SHIPPING_API_LEVEL),29)
+ifeq (true,$(call math_gt_or_eq,$(SHIPPING_API_LEVEL),29))
  # f2fs utilities
  PRODUCT_PACKAGES += \
      sg_write_buffer \
