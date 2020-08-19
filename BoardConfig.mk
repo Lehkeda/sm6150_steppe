@@ -41,8 +41,6 @@ else
 TARGET_KERNEL_APPEND_DTB := true
 endif
 
-SYSTEMEXT_SEPARATE_PARTITION_ENABLE = true
-
 # Set Header version for bootimage
 ifneq ($(strip $(TARGET_KERNEL_APPEND_DTB)),true)
 #Enable DTB in bootimage and Set Header version
@@ -134,11 +132,7 @@ ifneq ($(AB_OTA_UPDATER),true)
     TARGET_RECOVERY_UPDATER_LIBS += librecovery_updater_msm
 endif
 
-ifeq ($(SHIPPING_API_LEVEL),29)
-  BOARD_SYSTEMSDK_VERSIONS:=29
-else
-  BOARD_SYSTEMSDK_VERSIONS:=28
-endif
+BOARD_SYSTEMSDK_VERSIONS := $(SHIPPING_API_LEVEL)
 
 #Enable split vendor image
 ENABLE_VENDOR_IMAGE := true
