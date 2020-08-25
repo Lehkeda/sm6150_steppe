@@ -27,21 +27,21 @@ TARGET_SKIP_OTATOOLS_PACKAGE := true
 BOARD_AVB_ENABLE := true
 
 # By default this target is ota config, so set the default shipping level to 28 (if not set explictly earlier)
-SHIPPING_API_LEVEL ?= 29
+SHIPPING_API_LEVEL := 30
 
 # Enable virtual-ab by default
 ENABLE_VIRTUAL_AB := true
 
 # Enable Dynamic partitions only for Q new launch devices.
-ifeq ($(SHIPPING_API_LEVEL),29)
+ifeq (true,$(call math_gt_or_eq,$(SHIPPING_API_LEVEL),29))
   BOARD_DYNAMIC_PARTITION_ENABLE := true
-  PRODUCT_SHIPPING_API_LEVEL := 29
+  PRODUCT_SHIPPING_API_LEVEL := $(SHIPPING_API_LEVEL)
 else ifeq ($(SHIPPING_API_LEVEL),28)
   BOARD_DYNAMIC_PARTITION_ENABLE := false
   $(call inherit-product, build/make/target/product/product_launched_with_p.mk)
 endif
 
-ifeq ($(SHIPPING_API_LEVEL),29)
+ifeq (true,$(call math_gt_or_eq,$(SHIPPING_API_LEVEL),29))
  # f2fs utilities
  PRODUCT_PACKAGES += \
      sg_write_buffer \
@@ -113,6 +113,13 @@ PRODUCT_MODEL := $(MSMSTEPPE) for arm64
 TARGET_USES_AOSP := false
 TARGET_USES_AOSP_FOR_AUDIO := false
 TARGET_USES_QCOM_BSP := false
+
+ifeq ($(TARGET_FWK_SUPPORTS_FULL_VALUEADDS),true)
+  $(warning "Compiling with full value-added framework")
+else
+  $(warning "Compiling without full value-added framework - enabling GENERIC_ODM_IMAGE")
+  GENERIC_ODM_IMAGE := true
+endif
 
 # RRO configuration
 TARGET_USES_RRO := true
@@ -298,6 +305,12 @@ ODM_MANIFEST_FILES += device/qcom/$(MSMSTEPPE)/manifest_366.xml
 
 #Enable Light AIDL HAL
 PRODUCT_PACKAGES += android.hardware.lights-service.qti
+
+ifneq ($(GENERIC_ODM_IMAGE),true)
+   ODM_MANIFEST_FILES += device/qcom/$(MSMSTEPPE)/manifest-qva.xml
+else
+   ODM_MANIFEST_FILES += device/qcom/$(MSMSTEPPE)/manifest-generic.xml
+endif
 
 ###################################################################################
 # This is the End of target.mk file.
