@@ -41,7 +41,7 @@ else ifeq ($(SHIPPING_API_LEVEL),28)
   $(call inherit-product, build/make/target/product/product_launched_with_p.mk)
 endif
 
-ifeq ($(SHIPPING_API_LEVEL),29)
+ifeq (true,$(call math_gt_or_eq,$(SHIPPING_API_LEVEL),29))
  # f2fs utilities
  PRODUCT_PACKAGES += \
      sg_write_buffer \
@@ -77,9 +77,11 @@ PRODUCT_PACKAGES += fastbootd
 # Add default implementation of fastboot HAL.
 PRODUCT_PACKAGES += android.hardware.fastboot@1.0-impl-mock
 ifeq ($(ENABLE_AB), true)
-PRODUCT_COPY_FILES += $(LOCAL_PATH)/fstab_AB_dynamic_partition.qti:$(TARGET_COPY_OUT_RAMDISK)/fstab.qcom
+PRODUCT_COPY_FILES += $(LOCAL_PATH)/default/fstab_AB_dynamic_partition.qti:$(TARGET_COPY_OUT_RAMDISK)/fstab.default
+PRODUCT_COPY_FILES += $(LOCAL_PATH)/emmc/fstab_AB_dynamic_partition.qti:$(TARGET_COPY_OUT_RAMDISK)/fstab.emmc
 else
-PRODUCT_COPY_FILES += $(LOCAL_PATH)/fstab_non_AB_dynamic_partition.qti:$(TARGET_COPY_OUT_RAMDISK)/fstab.qcom
+PRODUCT_COPY_FILES += $(LOCAL_PATH)/default/fstab_non_AB_dynamic_partition.qti:$(TARGET_COPY_OUT_RAMDISK)/fstab.default
+PRODUCT_COPY_FILES += $(LOCAL_PATH)/emmc/fstab_non_AB_dynamic_partition.qti:$(TARGET_COPY_OUT_RAMDISK)/fstab.emmc
 endif
 BOARD_AVB_VBMETA_SYSTEM := system
 BOARD_AVB_VBMETA_SYSTEM_KEY_PATH := external/avb/test/data/testkey_rsa2048.pem
@@ -113,6 +115,13 @@ PRODUCT_MODEL := $(MSMSTEPPE) for arm64
 TARGET_USES_AOSP := false
 TARGET_USES_AOSP_FOR_AUDIO := false
 TARGET_USES_QCOM_BSP := false
+
+ifeq ($(TARGET_FWK_SUPPORTS_FULL_VALUEADDS),true)
+  $(warning "Compiling with full value-added framework")
+else
+  $(warning "Compiling without full value-added framework - enabling GENERIC_ODM_IMAGE")
+  GENERIC_ODM_IMAGE := true
+endif
 
 # RRO configuration
 TARGET_USES_RRO := true
@@ -298,6 +307,12 @@ ODM_MANIFEST_FILES += device/qcom/$(MSMSTEPPE)/manifest_366.xml
 
 #Enable Light AIDL HAL
 PRODUCT_PACKAGES += android.hardware.lights-service.qti
+
+ifneq ($(GENERIC_ODM_IMAGE),true)
+   ODM_MANIFEST_FILES += device/qcom/$(MSMSTEPPE)/manifest-qva.xml
+else
+   ODM_MANIFEST_FILES += device/qcom/$(MSMSTEPPE)/manifest-generic.xml
+endif
 
 ###################################################################################
 # This is the End of target.mk file.
