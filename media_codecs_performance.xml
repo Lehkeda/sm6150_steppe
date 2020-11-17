@@ -141,7 +141,7 @@ limitations under the License.
         <MediaCodec name="OMX.google.vp9.decoder" type="video/x-vnd.on2.vp9" update="true">
             <Limit name="measured-frame-rate-320x240" range="876-993" />
             <Limit name="measured-frame-rate-640x360" range="322-206" />
-            <Limit name="measured-frame-rate-1280x720" range="32-40" />
+            <Limit name="measured-frame-rate-1280x720" range="95-120" />
             <Limit name="measured-frame-rate-1920x1080" range="30-41" />
         </MediaCodec>
     </Decoders>
